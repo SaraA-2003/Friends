@@ -44,7 +44,7 @@
 ```plaintext
 Friends-Motors/
 ├── database/
-│   └── friends_motors.sql         # MySQL database schema
+│   └── CarDealerShip.sql         # MySQL database schema
 ├── frontend/
 │   ├── index.html                 # Homepage
 │   ├── styles.css                 # CSS styling
