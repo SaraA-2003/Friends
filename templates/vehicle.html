@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/icon" href="../static/img/logo.jpg"/>
+
+    <title>Vehicle CRUD</title>
+
+    <style>
+        .bg-mynav {
+            background-color: #1e1e1e;
+        }
+
+        body {
+            font-size: 1.25rem;
+            background-color: #f6f8fa;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        td {
+            line-height: 3rem;
+        }
+
+        /* Animation for table rows */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        tbody tr {
+            animation: fadeInUp 0.5s ease-in-out;
+        }
+
+        /* Animation for Create User Box */
+        @keyframes slideInFromRight {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        #createUserBox {
+            animation: slideInFromRight 0.5s ease-in-out;
+        }
+
+        /* Adjusted sidebar styling */
+        .sidebar {
+            height: 100%;
+            width: 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #1e1e1e;
+            padding-top: 20px;
+            overflow-x: hidden;
+            transition: width 0.4s ease-in-out;
+            z-index: 1; /* Ensure sidebar appears above content */
+        }
+
+        /* Show icons even when sidebar is collapsed */
+        .sidebar .sidebar-icons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar:hover {
+            width: 250px;
+        }
+
+        .sidebar-content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 50px;
+            background-color: #1e1e1e;
+            height: 100%;
+            padding-top: 20px;
+            transition: left 0.4s ease-in-out;
+        }
+
+        .sidebar:hover .sidebar-content {
+            display: block;
+            left: 0;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            /* Add transition */
+            transition: padding 0.4s ease-in-out;
+        }
+
+        .sidebar a:hover {
+            padding: 10px 25px;
+        }
+
+        .sidebar img {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        .content {
+            margin-left: 50px; /* Initial margin */
+            padding: 20px;
+            transition: margin-left 0.4s ease-in-out; /* Add transition for margin */
+        }
+
+        /* Adjust content margin when sidebar expands */
+        .sidebar:hover ~ .content {
+            margin-left: 250px; /* Match the expanded width of the sidebar */
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+         /* Add styles for icons */
+         .action-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .action-icons a {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body style="font-family: 'Poppins';">
+
+<!-- Sidebar -->
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-icons" style="display: flex; flex-direction: column; align-items: center;">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <img src="../static/img/logo.jpg" alt="Friends Motors">
+        </div>
+        <br>
+        <br>
+        <a href="#">
+            <img src="../static/img/team-fill.png" alt="Customer Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/contract-fill.png" alt="Transaction Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/car-line.png" alt="Vehicle Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/bookmark-fill.png" alt="Book Icon"> 
+        </a>
+    </div>
+    <div class="sidebar-content">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <div>
+                <img src="../static/img/logo.jpg" alt="Friends Motors" style="width: 30px; margin-right: 10px;">
+            </div>
+            <div>
+                <p style="font-size: 20px; color: white; margin: 0;">FRIENDS MOTORS</p>
+            </div>
+        </div>
+        <br>
+        <br>
+        <a href="#" onclick="window.location.href='/customer'">
+            <img src="../static/img/team-fill.png" alt="Customer Icon" style="margin-right: 10px;"> Customers
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/transaction'">
+            <img src="../static/img/contract-fill.png" alt="Transaction Icon" style="margin-right: 10px;"> Transaction Details
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/vehicle'">
+            <img src="../static/img/car-line.png" alt="Vehicle Icon" style="margin-right: 10px;"> Vehicle
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/book'">
+            <img src="../static/img/bookmark-fill.png" alt="Book Icon" style="margin-right: 10px;"> Book
+        </a>
+    </div>
+    <div class="sidebar-footer">
+        <a href="#" onclick="window.location.href='/Slog'">
+            <img src="../static/img/logout-box-line.png" alt="Log-out Icon" style="margin-right: 10px;"> Log-out
+        </a>
+    </div>
+</div>
+<!-- Page content -->
+<div class="content">
+    <nav class="navbar navbar-dark bg-mynav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/salesperson">Salesperson Control Page - Vehicle</a>
+
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="d-flex bd-highlight mb-3">
+            <div class="me-auto p-2 bd-highlight"><h2>Users</h2></div>
+            <div class="p-2 bd-highlight">
+                <button type="button" class="btn btn-secondary" onclick="showUserCreateBox()">Create</button>
+            </div>
+        </div>
+        <!-- Search functionality -->
+        <div class="d-flex mb-3">
+            <select id="searchAttribute" class="form-select" style="width: 200px; margin-right: 10px;">
+                <option value="VId">Vehicle ID</option>
+                <option value="CId">Customer ID</option>
+                <option value="VModel">Model</option>
+                <option value="VYear">Year</option>
+                <option value="VPrice">Price</option>
+                <option value="VMake">Make</option>
+                <option value="VColor">Color</option>
+            </select>
+            <input type="text" id="searchValue" class="form-control" placeholder="Search...">
+            <button class="btn btn-secondary" onclick="fetchVehicle()" style="margin-left: 10px; background-color: green;">Reload</button> <!-- Reload button -->
+            <button class="btn btn-primary" onclick="searchVehicle()" style="margin-left: 10px;">Search</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Vehicle ID</th>
+                    <th scope="col">Customer ID</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Year Make</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Make</th>
+                    <th scope="col">Color</th>
+                    <th scope="col">Actions</th>
+
+                </tr>
+                </thead>
+                <tbody id="mytable">
+                <tr>
+                    <th scope="row" colspan="5">Loading...</th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Animated Create User Box -->
+       <!-- Add/Edit Vehicle Section -->
+        <div id="editVehicleBox" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    Edit Vehicle
+                </div>
+                <div class="card-body">
+                    <!-- Form to edit vehicle -->
+                    <form id="editVehicleForm">
+                        <input type="hidden" id="editVehicleId">
+                        <div class="mb-3">
+                            <label for="editCId" class="form-label">Customer ID</label>
+                            <input type="text" class="form-control" id="editCId" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editVehicleModel" class="form-label">Vehicle Model</label>
+                            <input type="text" class="form-control" id="editVehicleModel" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editVehicleYear" class="form-label">Vehicle Year</label>
+                            <input type="text" class="form-control" id="editVehicleYear" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editVehiclePrice" class="form-label">Vehicle Price</label>
+                            <input type="text" class="form-control" id="editVehiclePrice" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editVehicleMake" class="form-label">Vehicle Make</label>
+                            <input type="text" class="form-control" id="editVehicleMake" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editVehicleColor" class="form-label">Vehicle Color</label>
+                            <input type="text" class="form-control" id="editVehicleColor" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="createUserBox" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    Create New User
+                </div>
+                <div class="card-body">
+                    <!-- Form to create user -->
+                    <form id="createVehicleForm">
+                        <div class="mb-3">
+                            <label for="customerId" class="form-label">Customer ID</label>
+                            <input type="text" class="form-control" id="customerId" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="vehicleModel" class="form-label">Vehicle Model</label>
+                            <input type="text" class="form-control" id="vehicleModel" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="vehicleYear" class="form-label">Vehicle Year</label>
+                            <input type="text" class="form-control" id="vehicleYear" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="vehiclePrice" class="form-label">Vehicle Price</label>
+                            <input type="text" class="form-control" id="vehiclePrice" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="vehicleMake" class="form-label">Vehicle Make</label>
+                            <input type="text" class="form-control" id="vehicleMake" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="vehicleColor" class="form-label">Vehicle Make</label>
+                            <input type="text" class="form-control" id="vehicleColor" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0."></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetchVehicle();
+    });
+
+    function fetchVehicle() {
+        fetch('/api/vehicle')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('mytable');
+                tableBody.innerHTML = ''; // Clear previous data
+
+                if (data.error) {
+                    console.error(data.error);
+                    return;
+                }
+
+                data.forEach(vehicle => {
+                    const row = `
+                        <tr id="vehicle-${vehicle.VId}">
+                            <td>${vehicle.VId}</td>
+                            <td>${vehicle.CId}</td>
+                            <td>${vehicle.VModel}</td>
+                            <td>${vehicle.VYear}</td>
+                            <td>${vehicle.VPrice}</td>
+                            <td>${vehicle.VMake}</td>
+                            <td>${vehicle.VColor}</td>
+
+                            <td>
+                                <button class="btn btn-warning" onclick="editVehicle(${vehicle.VId})">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteVehicle(${vehicle.VId})">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            })
+            .catch(error => console.error('Error fetching vehicles:', error));
+    }
+    function showUserCreateBox() {
+        document.getElementById('createUserBox').style.display = 'block';
+    }
+     // Function to handle form submission for creating a new customer
+     document.getElementById('createVehicleForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        // Collect form data
+        const formData = {
+            customer_id: document.getElementById('customerId').value,
+            vehicle_model: document.getElementById('vehicleModel').value,
+            vehicle_year: document.getElementById('vehicleYear').value,
+            vehicle_price: document.getElementById('vehiclePrice').value,
+            vehicle_make: document.getElementById('vehicleMake').value,
+            vehicle_color: document.getElementById('vehicleColor').value  
+
+        };
+        // Send a POST request to your Flask server to create the customer
+        fetch('/api/vehicle', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Check if the response indicates success or failure
+            if (data.message) {
+                // Show a success message to the user
+                alert(data.message);
+                // Optionally, redirect to another page or refresh the customer list
+                fetchVehicle(); // Refresh customer list after adding a new customer
+            } else {
+                // Show an error message to the user
+                alert(data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error creating vehicle:', error);
+            // Show an error message to the user
+            alert('An error occurred while creating vehicle.');
+        });
+    });
+        
+
+    function deleteVehicle(vehicleId) {
+    // Send a DELETE request to your Flask server to delete the customer record
+    fetch(`/api/vehicle/${vehicleId}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok) {
+            // Remove the row from the table if deletion is successful
+            const row = document.querySelector(`#vehicle-${vehicleId}`);
+            row.remove();
+            // Show a success message to the user
+            alert('Vehicle deleted successfully!');
+        } else {
+            // Show an error message to the user
+            alert('Failed to delete vehicle.');
+        }
+    })
+    .catch(error => {
+        console.error('Error deleting vehicle:', error);
+        // Show an error message to the user
+        alert('An error occurred while deleting vehicle.');
+    });
+
+    }
+    function editVehicle(vehicleId) {
+        // Fetch the vehicle details by ID
+        fetch(`/api/vehicle/${vehicleId}`)
+            .then(response => response.json())
+            .then(vehicle => {
+                // Populate the edit form with the vehicle's current details
+                document.getElementById('editVehicleId').value = vehicle.VId;
+                document.getElementById('editCId').value = vehicle.CId;
+                document.getElementById('editVehicleModel').value = vehicle.VModel;
+                document.getElementById('editVehicleYear').value = vehicle.VYear;
+                document.getElementById('editVehiclePrice').value = vehicle.VPrice;
+                document.getElementById('editVehicleMake').value = vehicle.VMake;
+                document.getElementById('editVehicleColor').value = vehicle.VColor;
+
+                // Show the edit form
+                document.getElementById('editVehicleBox').style.display = 'block';
+            })
+            .catch(error => console.error('Error fetching vehicle details:', error));
+    }
+
+    // Function to handle form submission for editing a vehicle
+    document.getElementById('editVehicleForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        
+        // Collect form data
+        const formData = {
+            vid: document.getElementById('editVehicleId').value,
+            cid: document.getElementById('editCId').value,
+            vmodel: document.getElementById('editVehicleModel').value,
+            vyear: document.getElementById('editVehicleYear').value,
+            vprice: document.getElementById('editVehiclePrice').value,
+            vmake: document.getElementById('editVehicleMake').value,
+            vcolor: document.getElementById('editVehicleColor').value,
+        };
+        
+        // Send a PUT request to your Flask server to update the customer
+        fetch(`/api/vehicle/${formData.vid}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Check if the response indicates success or failure
+            if (data.message) {
+                // Show a success message to the user
+                alert(data.message);
+                // Optionally, refresh the vehicle list
+                fetchVehicle(); // Refresh vehicle list after editing a customer
+            } else {
+                // Show an error message to the user
+                alert(data.error);
+            }
+            // Hide the edit form after submission
+            document.getElementById('editVehicleBox').style.display = 'none';
+        })
+        .catch(error => {
+            console.error('Error updating vehicle:', error);
+            // Show an error message to the user
+            alert('An error occurred while updating vehicle.');
+        });
+    });
+    
+    function showUserEditBox() {
+        document.getElementById('editVehicleBox').style.display = 'block';
+    }
+    // Search customer function
+    function searchVehicle() {
+        const attribute = document.getElementById('searchAttribute').value;
+        const value = document.getElementById('searchValue').value;
+        
+        if (!value) {
+            alert('Please enter a search value');
+            return;
+        }
+        
+        fetch('/searchV', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ attribute, value }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            const table = document.getElementById('mytable');
+            table.innerHTML = ''; // Clear the table
+            
+            if (data.Vehicles.length === 0) {
+                const noResultsRow = `<tr><td colspan="8">No results found</td></tr>`;
+                table.insertAdjacentHTML('beforeend', noResultsRow);
+                return;
+            }
+
+            data.Vehicles.forEach(vehicle => {
+                const row = `<tr>
+                    <td>${vehicle.VId}</td>
+                    <td>${vehicle.CId}</td>
+                    <td>${vehicle.VModel}</td>
+                    <td>${vehicle.VYear}</td>
+                    <td>${vehicle.VPrice}</td>
+                    <td>${vehicle.VMake}</td>
+                    <td>${vehicle.VColor}</td>
+                    <td class="action-icons">
+                        <button class="btn btn-warning" onclick="editVehicle(${vehicle.VId})">Edit</button>
+                        <button class="btn btn-danger" onclick="deleteVehicle(${vehicle.VId})">Delete</button>
+                    </td>
+                </tr>`;
+                table.insertAdjacentHTML('beforeend', row);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+</script>
+<script src="index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.">
+
+</script>
+</body>
+</html>

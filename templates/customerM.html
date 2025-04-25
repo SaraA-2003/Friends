@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/icon" href="../static/img/logo.jpg"/>
+
+    <title>Customer CRUD</title>
+
+    <style>
+        /* Your CSS styles here */
+
+        .bg-mynav {
+            background-color: #1e1e1e;
+        }
+
+        body {
+            font-size: 1.25rem;
+            background-color: #f6f8fa;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        td {
+            line-height: 3rem;
+        }
+
+        /* Animation for table rows */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        tbody tr {
+            animation: fadeInUp 0.5s ease-in-out;
+        }
+
+        /* Animation for Create User Box */
+        @keyframes slideInFromRight {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        #createUserBox {
+            animation: slideInFromRight 0.5s ease-in-out;
+        }
+
+        /* Adjusted sidebar styling */
+        .sidebar {
+            height: 100%;
+            width: 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #1e1e1e;
+            padding-top: 20px;
+            overflow-x: hidden;
+            transition: width 0.4s ease-in-out;
+            z-index: 1; /* Ensure sidebar appears above content */
+        }
+
+        /* Show icons even when sidebar is collapsed */
+        .sidebar .sidebar-icons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar:hover {
+            width: 250px;
+        }
+
+        .sidebar-content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 50px;
+            background-color: #1e1e1e;
+            height: 100%;
+            padding-top: 20px;
+            transition: left 0.4s ease-in-out;
+        }
+
+        .sidebar:hover .sidebar-content {
+            display: block;
+            left: 0;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            /* Add transition */
+            transition: padding 0.4s ease-in-out;
+        }
+
+        .sidebar a:hover {
+            padding: 10px 25px;
+        }
+
+        .sidebar img {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        .content {
+            margin-left: 50px; /* Initial margin */
+            padding: 20px;
+            transition: margin-left 0.4s ease-in-out; /* Add transition for margin */
+        }
+
+        /* Adjust content margin when sidebar expands */
+        .sidebar:hover ~ .content {
+            margin-left: 250px; /* Match the expanded width of the sidebar */
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Add styles for icons */
+        .action-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .action-icons a {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body style="font-family: 'Poppins';">
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-icons" style="display: flex; flex-direction: column; align-items: center;">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <img src="../static/img/logo.jpg" alt="Friends Motors">
+        </div>
+        <br>
+        <br>
+        <a href="#">
+            <img src="../static/img/team-fill.png" alt="Customer Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/account-pin-box-line.png" alt="Salesperson Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/contract-fill.png" alt="Transaction Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/car-line.png" alt="Vehicle Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/bookmark-fill.png" alt="Book Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/file-chart-line.png" alt="Report Icon"> 
+        </a>
+    </div>
+    <div class="sidebar-content">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <div>
+                <img src="../static/img/logo.jpg" alt="Friends Motors" style="width: 30px; margin-right: 10px;">
+            </div>
+            <div>
+                <p style="font-size: 20px; color: white; margin: 0;">FRIENDS MOTORS</p>
+            </div>
+        </div>
+        <br>
+        <br>
+        <a href="#" onclick="window.location.href='/customerM'">
+            <img src="../static/img/team-fill.png" alt="Customer Icon" style="margin-right: 10px;"> Customers
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/salespersonT'">
+            <img src="../static/img/account-pin-box-line.png" alt="Salesperson Icon" style="margin-right: 10px;"> Salesperson
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/transactionM'">
+            <img src="../static/img/contract-fill.png" alt="Transaction Icon" style="margin-right: 10px;"> Transaction Details
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/vehicleM'">
+            <img src="../static/img/car-line.png" alt="Vehicle Icon" style="margin-right: 10px;"> Vehicle
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/bookM'">
+            <img src="../static/img/bookmark-fill.png" alt="Book Icon" style="margin-right: 10px;"> Book
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/report'">
+            <img src="../static/img/file-chart-line.png" alt="Book Icon" style="margin-right: 10px;"> Report
+        </a>
+    </div>
+    <div class="sidebar-footer">
+        <a href="#" onclick="window.location.href='/Mlog'">
+            <img src="../static/img/logout-box-line.png" alt="Log-out Icon" style="margin-right: 10px;"> Log-out
+        </a>
+    </div>
+</div>
+<!-- Page content -->
+<div class="content">
+    <nav class="navbar navbar-dark bg-mynav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/manager">Manager Control Page - Customer</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="d-flex bd-highlight mb-3">
+            <div class="me-auto p-2 bd-highlight"><h2>Users</h2></div>
+            <div class="p-2 bd-highlight">
+                <button type="button" class="btn btn-secondary" onclick="showUserCreateBox()">Create</button>
+            </div>
+        </div>
+        <!-- Search functionality -->
+        <div class="d-flex mb-3">
+            <select id="searchAttribute" class="form-select" style="width: 200px; margin-right: 10px;">
+                <option value="CId">ID</option>
+                <option value="CFirstName">First Name</option>
+                <option value="CLastName">Last Name</option>
+                <option value="CDateOfBirth">Date Of Birth</option>
+                <option value="CLicenseId">License ID</option>
+                <option value="CAddress">Address</option>
+                <option value="CPhoneNumber">Phone</option>
+            </select>
+            <input type="text" id="searchValue" class="form-control" placeholder="Search...">
+            <button class="btn btn-secondary" onclick="fetchCustomers()" style="margin-left: 10px; background-color: green;">Reload</button> <!-- Reload button -->
+            <button class="btn btn-primary" onclick="searchCustomer()" style="margin-left: 10px;">Search</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Date Of Birth</th>
+                    <th scope="col">Liscence ID</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Actions</th> <!-- Add a new column for actions -->
+                </tr>
+                </thead>
+                <tbody id="mytable">
+                <tr>
+                    <th scope="row" colspan="5">Loading...</th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Animated Create User Box -->
+        <!-- Animated Edit Customer Box -->
+        <div id="editCustomerBox" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    Edit Customer
+                </div>
+                <div class="card-body">
+                    <!-- Form to edit customer -->
+                    <form id="editCustomerForm">
+                        <input type="hidden" id="editCustomerId">
+                        <div class="mb-3">
+                            <label for="editFirstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="editFirstName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editLastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="editLastName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDob" class="form-label">Date Of Birth</label>
+                            <input type="date" class="form-control" id="editDob" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editLicenseId" class="form-label">License ID</label>
+                            <input type="text" class="form-control" id="editLicenseId" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAddress" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="editAddress" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPhone" class="form-label">Phone</label>
+                            <input type="text" class="form-control" id="editPhone" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="createUserBox" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    Create New User
+                </div>
+                <div class="card-body">
+                    <!-- Form to create user -->
+                    <form id="createCustomerForm">
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dob" class="form-label">Date Of Birth</label>
+                            <input type="date" class="form-control" id="dob" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="licenseId" class="form-label">License ID</label>
+                            <input type="text" class="form-control" id="licenseId" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="text" class="form-control" id="phone" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetchCustomers();
+    });
+
+    function fetchCustomers() {
+        fetch('/api/customers')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('mytable');
+                tableBody.innerHTML = ''; // Clear previous data
+
+                if (data.error) {
+                    console.error(data.error);
+                    return;
+                }
+
+                data.forEach(customer => {
+                    const row = `
+                        <tr id="customer-${customer.CId}">
+                            <td>${customer.CId}</td>
+                            <td>${customer.CFirstName}</td>
+                            <td>${customer.CLastName}</td>
+                            <td>${customer.CDateOfBirth}</td>
+                            <td>${customer.CLicenseId}</td>
+                            <td>${customer.CAddress}</td>
+                            <td>${customer.CPhoneNumber}</td>
+                            <td>
+                                <button class="btn btn-warning" onclick="editCustomer(${customer.CId})">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteCustomer(${customer.CId})">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            })
+            .catch(error => console.error('Error fetching customers:', error));
+    }
+
+    function showUserCreateBox() {
+        document.getElementById('createUserBox').style.display = 'block';
+    }
+    // Function to handle form submission for creating a new customer
+    document.getElementById('createCustomerForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        
+        // Collect form data
+        const formData = {
+            first_name: document.getElementById('firstName').value,
+            last_name: document.getElementById('lastName').value,
+            date_of_birth: document.getElementById('dob').value,
+            license_id: document.getElementById('licenseId').value,
+            address: document.getElementById('address').value,
+            phone_number: document.getElementById('phone').value
+        };
+        
+        // Send a POST request to your Flask server to create the customer
+        fetch('/api/customers', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Check if the response indicates success or failure
+            if (data.message) {
+                // Show a success message to the user
+                alert(data.message);
+                // Optionally, redirect to another page or refresh the customer list
+                fetchCustomers(); // Refresh customer list after adding a new customer
+            } else {
+                // Show an error message to the user
+                alert(data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error creating customer:', error);
+            // Show an error message to the user
+            alert('An error occurred while creating customer.');
+        });
+    });
+    
+
+    function deleteCustomer(customerId) {
+    // Send a DELETE request to your Flask server to delete the customer record
+    fetch(`/api/customers/${customerId}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok) {
+            // Remove the row from the table if deletion is successful
+            const row = document.querySelector(`#customer-${customerId}`);
+            row.remove();
+            print("done")
+            // Show a success message to the user
+            alert('Customer deleted successfully!');
+        } else {
+            // Show an error message to the user
+            alert('Failed to delete customer.');
+        }
+    })
+    .catch(error => {
+        console.error('Error deleting customer:', error);
+        // Show an error message to the user
+        alert('An error occurred while deleting customer.');
+    });
+}
+    function editCustomer(customerId) {
+        // Fetch the customer details by ID
+        fetch(`/api/customers/${customerId}`)
+            .then(response => response.json())
+            .then(customer => {
+                // Populate the edit form with the customer's current details
+                document.getElementById('editCustomerId').value = customer.CId;
+                document.getElementById('editFirstName').value = customer.CFirstName;
+                document.getElementById('editLastName').value = customer.CLastName;
+                document.getElementById('editDob').value = customer.CDateOfBirth;
+                document.getElementById('editLicenseId').value = customer.CLicenseId;
+                document.getElementById('editAddress').value = customer.CAddress;
+                document.getElementById('editPhone').value = customer.CPhoneNumber;
+
+                // Show the edit form
+                document.getElementById('editCustomerBox').style.display = 'block';
+            })
+            .catch(error => console.error('Error fetching customer details:', error));
+    }
+
+    // Function to handle form submission for editing a customer
+    document.getElementById('editCustomerForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        
+        // Collect form data
+        const formData = {
+            id: document.getElementById('editCustomerId').value,
+            first_name: document.getElementById('editFirstName').value,
+            last_name: document.getElementById('editLastName').value,
+            date_of_birth: document.getElementById('editDob').value,
+            license_id: document.getElementById('editLicenseId').value,
+            address: document.getElementById('editAddress').value,
+            phone_number: document.getElementById('editPhone').value
+        };
+        
+        // Send a PUT request to your Flask server to update the customer
+        fetch(`/api/customers/${formData.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Check if the response indicates success or failure
+            if (data.message) {
+                // Show a success message to the user
+                alert(data.message);
+                // Optionally, refresh the customer list
+                fetchCustomers(); // Refresh customer list after editing a customer
+            } else {
+                // Show an error message to the user
+                alert(data.error);
+            }
+            // Hide the edit form after submission
+            document.getElementById('editCustomerBox').style.display = 'none';
+        })
+        .catch(error => {
+            console.error('Error updating customer:', error);
+            // Show an error message to the user
+            alert('An error occurred while updating customer.');
+        });
+    });
+    
+    function showUserEditBox() {
+        document.getElementById('editCustomerBox').style.display = 'block';
+    }
+        // Search customer function
+        function searchCustomer() {
+        const attribute = document.getElementById('searchAttribute').value;
+        const value = document.getElementById('searchValue').value;
+        
+        if (!value) {
+            alert('Please enter a search value');
+            return;
+        }
+        
+        fetch('/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ attribute, value }),
+        })
+        
+        .then(response => response.json())
+        .then(data => {
+            const table = document.getElementById('mytable');
+            table.innerHTML = ''; // Clear the table
+            
+            if (data.customers.length === 0) {
+                const noResultsRow = `<tr><td colspan="8">No results found</td></tr>`;
+                table.insertAdjacentHTML('beforeend', noResultsRow);
+                return;
+            }
+
+            data.customers.forEach(customer => {
+                const row = `<tr>
+                    <td>${customer.CId}</td>
+                    <td>${customer.CFirstName}</td>
+                    <td>${customer.CLastName}</td>
+                    <td>${customer.CDateOfBirth}</td>
+                    <td>${customer.CLicenseId}</td>
+                    <td>${customer.CAddress}</td>
+                    <td>${customer.CPhoneNumber}</td>
+                    <td class="action-icons">
+                        <button class="btn btn-warning" onclick="editCustomer(${customer.CId})">Edit</button>
+                        <button class="btn btn-danger" onclick="deleteCustomer(${customer.CId})">Delete</button>
+                    </td>
+                </tr>`;
+                table.insertAdjacentHTML('beforeend', row);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+</script>
+<script src="index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.">
+
+</script>
+</body>
+</html>

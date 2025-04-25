@@ -1,0 +1,751 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+    <head>
+        <!-- meta data -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+        <!--font-family-->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+		<link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet">
+        <!-- For favicon png -->
+		<link rel="shortcut icon" type="image/icon" href="../static/img/logo.jpg"/>
+        <!-- title of site -->
+        <title>Friend Motors</title>
+
+       
+        <!--font-awesome.min.css-->
+        <link rel="stylesheet" href="../static/font-awesome.min.css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='font-awesome.min.css') }}">
+
+        <!--linear icon css-->
+		<link rel="stylesheet" href="../static/linearicons.css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='linearicons.css') }}">
+
+        <!--flaticon.css-->
+		<link rel="stylesheet" href="../static/flaticon.css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='flaticon.css') }}">
+
+		<!--animate.css-->
+        <link rel="stylesheet" href="../static/animate.css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='animate.css') }}">
+
+        <!--owl.carousel.css-->
+        <link rel="stylesheet" href="../static/owl.carousel.min.css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='owl.carousel.min.css') }}">
+
+		<link rel="stylesheet" href="../static/owl.theme.default.min.css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='owl.theme.default.min.css') }}">
+
+		
+        <!--bootstrap.min.css-->
+        <link rel="stylesheet" href="../static/bootstrap.min.css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+
+		
+		<!-- bootsnav -->
+		<link rel="stylesheet" href="../static/bootsnav.css" >	
+		<link rel="stylesheet" href="{{ url_for('static', filename='bootsnav.css') }}">
+
+        
+        <!--style.css-->
+        <link rel="stylesheet" href="../static/style.css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+        
+        <!--responsive.css-->
+        <link rel="stylesheet" href="../static/responsive.css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='responsive.css') }}">
+
+
+
+
+		<!-- Libraries Stylesheet -->
+		
+        
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		
+        <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+	<style>
+		
+
+		/* CSS for navbar alignment */
+		.navbar-nav, .navbar-brand, .profile .navbar-text {
+			display: flex;
+			align-items: center;
+		}
+
+		.navbar-nav > li {
+			margin-left: 10px; /* Adjust the margin as needed */
+			white-space: nowrap; /* Prevents text from wrapping */
+		}
+
+		.profile .navbar-text {
+			margin-left: 10px; /* Adjust the margin as needed */
+		}
+
+		.profile .navbar-text span {
+			margin-right: 10px; /* Adjust the margin as needed */
+		}
+
+		.profile .avatar {
+			width: 30px; /* Adjust the width as needed */
+			height: 30px; /* Adjust the height as needed */
+			border-radius: 50%; /* Makes the image circular */
+		}
+
+	</style>
+	
+	<body style="font-family: 'Poppins';">
+		<!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+	
+		<!--welcome-hero start -->
+		<section id="home" class="welcome-hero">
+			<video loop muted autoplay plays-inline src="../static/img/welcome.mp4" class="back"></video> 
+			<!-- top-area Start -->
+			<div class="top-area">
+				<div class="header-area">
+					<!-- Start Navigation -->
+				    <nav class="navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy"  data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+
+				        <div class="container" style="display: flex; width: 90%;">
+
+				            <!-- Start Header Navigation -->
+				            <div class="navbar-header" style="flex: 7;">
+				                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+				                    <i class="fa fa-bars"></i>
+				                </button>
+								<a class="navbar-brand" href=#>Friends Motors<span></span></a>
+
+				            </div><!--/.navbar-header-->
+				            <!-- End Header Navigation -->
+
+				            <!-- Collect the nav links, forms, and other content for toggling -->
+				            <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu" style="flex: 7;">
+				                <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+				                    <li class=" scroll active"><a href="#home">home</a></li>
+				                    <li class="scroll"><a href="#service">about us</a></li>
+				                    <li class="scroll"><a href="#featured-cars">featured cars</a></li>
+				                    <li class="scroll"><a href="#new-cars">new cars</a></li>
+				                    <li class="scroll"><a href="#brand">brands</a></li>
+				                    <li class="scroll" style="margin-right: 15px;"><a href="#contact">contact</a></li>
+									{% if username %}
+										<li class="profile">
+											<div class="navbar-text">
+												<!-- Add your avatar here -->
+												<img src="../static/img/unsplash_3TLl_97HNJo.png" alt="Avatar" class="avatar" style="margin-right: 15px;">
+												<span style="color: white; font-family: 'Poppins'; font-size: 18px;">Hi, {{ username }}</span>
+
+											</div>
+										</li>
+									{% endif %}
+				                </ul><!--/.nav -->
+				            </div><!-- /.navbar-collapse -->
+				        </div><!--/.container-->
+				    </nav><!--/nav-->
+				    <!-- End Navigation -->
+				</div><!--/.header-area-->
+			    <div class="clearfix"></div>
+
+			</div><!-- /.top-area-->
+			<!-- top-area End -->
+
+			<div class="container">
+				<div class="welcome-hero-txt">
+					<h2>Discover Your Dream Ride Today!</h2>
+					<p>
+						Rev Up Your Passion for Driving! Discover Your Ideal Vehicle at Friends Motors Today
+					</p>
+					<button class="welcome-btn" onclick="window.location.href='/bookings?customer_id={{ customer_id }}'">Check Your Bookings</button>
+
+				</div>
+			</div>
+
+			
+		</section><!--/.welcome-hero-->
+		<!--welcome-hero end -->
+
+		<!--about us start -->
+		<section id="service" class="service">
+			<div id="abouttxt">
+				<h1>ABOUT US</h1>
+			</div>
+			
+			<img src="../static/img/blackcar.png">
+			<div id="paragraph">
+				<p>At Friends Motors, we're your premier destination for quality vehicles and exceptional service. With a passion for cars and a commitment 
+					to customer satisfaction, we strive to make your car-buying experience smooth and enjoyable. Discover a diverse selection of top-notch
+					 vehicles and personalized assistance from our knowledgeable team. Drive home with confidence from Friends Motors</p>
+	
+			</div>
+			<br>
+			<br>
+			<div class="container">
+				<div class="service-content">
+					<div class="row">
+						<div class="col-md-4 col-sm-6">
+							<div class="single-service-item">
+								<div class="single-service-icon">
+									<i class="flaticon-car"></i>
+								</div>
+								
+								<h2><a href="#">largest dealership <span> of</span> car</a></h2>
+								<p>
+									Discover a world of possibilities at the largest car dealership, where your ideal ride awaits with personalized service and an expansive selection  
+								</p>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-6">
+							<div class="single-service-item">
+								<div class="single-service-icon">
+									<i class="flaticon-car-repair"></i>
+								</div>
+								<h2><a href="#">Customer-Centric Approach</a></h2>
+								<p>
+									Your satisfaction is our top priority. Our team is dedicated to guiding you through your car-buying journey, ensuring a personalized experience every step of the way
+								</p>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-6">
+							<div class="single-service-item">
+								<div class="single-service-icon">
+									<i class="flaticon-car-1"></i>
+								</div>
+								<h2><a href="#">Seamless Booking Process</a></h2>
+								<p>
+									At Friend Motors, booking your dream car is a breeze. Our streamlined process ensures a hassle-free experience from start to finish
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!--/.container-->
+
+		</section><!--/.service-->
+
+    <!--featured-cars start -->
+		<section id="featured-cars" class="featured-cars">
+			<div class="container">
+				<div class="section-header">
+					<p style="font-size: 20px; font-weight: 500;">checkout <span>the</span> featured cars</p>
+					<h2 style="color: white; font-family: Poppins; font-size: 50px; font-weight: 657;">featured cars</h2>
+				</div><!--/.section-header-->
+				<div class="featured-cars-content">
+					<div class="row">
+						<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="single-featured-cars">
+								<div class="featured-img-box">
+									<div class="featured-cars-img">
+										<img src="../static/img/unsplash__4sWbzH5fp8.png" alt="cars">
+									</div>
+									<div class="featured-model-info">
+										<p>
+											model: 2017
+											<span class="featured-mi-span"> 3100 mi</span> 
+											<span class="featured-hp-span"> 240HP</span>
+											 automatic
+										</p>
+									</div>
+								</div>
+								<div class="featured-cars-txt">
+									<h2><a href="#">BMW 6-series gran coupe</a></h2>
+									<h3>$89,395</h3>
+									<p>
+										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
+									</p>
+								</div>
+                                <div id="book-box">
+                                    <button class="welcome-btn new-cars-btn" onclick="window.location.href='/book_form'">Book Now</button>
+
+                                </div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="single-featured-cars">
+								<div class="featured-img-box">
+									<div class="featured-cars-img">
+										<img src="../static/img/blue.png" alt="cars">
+									</div>
+									<div class="featured-model-info">
+										<p>
+											model: 2017
+											<span class="featured-mi-span"> 3100 mi</span> 
+											<span class="featured-hp-span"> 240HP</span>
+											 automatic
+										</p>
+									</div>
+								</div>
+								<div class="featured-cars-txt">
+									<h2><a href="#">chevrolet camaro <span>wmv20</span></a></h2>
+									<h3>$66,575</h3>
+									<p>
+										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
+									</p>
+								</div>
+                                <div id="book-box">
+                                    <button class="welcome-btn new-cars-btn" onclick="window.location.href='/book_form'">Book Now</button>
+                                </div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="single-featured-cars">
+								<div class="featured-img-box">
+									<div class="featured-cars-img">
+										<img src="../static/img/unsplash_DH_IAgZkJP4.png" alt="cars">
+									</div>
+									<div class="featured-model-info">
+										<p>
+											model: 2017
+											<span class="featured-mi-span"> 3100 mi</span> 
+											<span class="featured-hp-span"> 240HP</span>
+											 automatic
+										</p>
+									</div>
+								</div>
+								<div class="featured-cars-txt">
+									<h2><a href="#">lamborghini <span>v520</span></a></h2>
+									<h3>$125,250</h3>
+									<p>
+										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
+									</p>
+								</div>
+                                <div id="book-box">
+                                    <button class="welcome-btn new-cars-btn" onclick="window.location.href='/book_form'">Book Now</button>
+                                </div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="single-featured-cars">
+								<div class="featured-img-box">
+									<div class="featured-cars-img">
+										<img src="../static/img/unsplash_SWt1dHle1eA.png" alt="cars">
+									</div>
+									<div class="featured-model-info">
+										<p>
+											model: 2017
+											<span class="featured-mi-span"> 3100 mi</span> 
+											<span class="featured-hp-span"> 240HP</span>
+											 automatic
+										</p>
+									</div>
+								</div>
+								<div class="featured-cars-txt">
+									<h2><a href="#">audi <span> a3</span> sedan</a></h2>
+									<h3>$95,500</h3>
+									<p>
+										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
+									</p>
+								</div>
+                                <div id="book-box">
+                                    <button class="welcome-btn new-cars-btn" onclick="window.location.href='/book_form'">Book Now</button>
+                                </div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="single-featured-cars">
+								<div class="featured-img-box">
+									<div class="featured-cars-img">
+										<img src="../static/img/welcome-banner.jpg" alt="cars">
+									</div>
+									<div class="featured-model-info">
+										<p>
+											model: 2017
+											<span class="featured-mi-span"> 3100 mi</span> 
+											<span class="featured-hp-span"> 240HP</span>
+											 automatic
+										</p>
+									</div>
+								</div>
+								<div class="featured-cars-txt">
+									<h2><a href="#">infiniti <span>z5</span></a></h2>
+									<h3>$36,850</h3>
+									<p>
+										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
+									</p>
+								</div>
+                                <div id="book-box">
+                                    <button class="welcome-btn new-cars-btn" onclick="window.location.href='/book_form'">Book Now</button>
+                                </div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="single-featured-cars">
+								<div class="featured-img-box">
+									<div class="featured-cars-img">
+										<img src="../static/img/unsplash_4gSavS9pe1s.png" alt="cars">
+									</div>
+									<div class="featured-model-info">
+										<p>
+											model: 2017
+											<span class="featured-mi-span"> 3100 mi</span> 
+											<span class="featured-hp-span"> 240HP</span>
+											 automatic
+										</p>
+									</div>
+								</div>
+								<div class="featured-cars-txt">
+									<h2><a href="#">porsche <span>718</span> cayman</a></h2>
+									<h3>$48,500</h3>
+									<p>
+										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
+									</p>
+								</div>
+                                <div id="book-box">
+									<button class="welcome-btn new-cars-btn" onclick="window.location.href='/book_form'">Book Now</button>
+
+                                </div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="single-featured-cars">
+								<div class="featured-img-box">
+									<div class="featured-cars-img">
+										<img src="../static/img/unsplash_4mh4JLuFies.png" alt="cars">
+									</div>
+									<div class="featured-model-info">
+										<p>
+											model: 2017
+											<span class="featured-mi-span"> 3100 mi</span> 
+											<span class="featured-hp-span"> 240HP</span>
+											 automatic
+										</p>
+									</div>
+								</div>
+								<div class="featured-cars-txt">
+									<h2><a href="#"><span>bmw 8-</span>series coupe</a></h2>
+									<h3>$56,000</h3>
+									<p>
+										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
+									</p>
+								</div>
+                                <div id="book-box">
+									<button class="welcome-btn new-cars-btn" onclick="window.location.href='/book_form'">Book Now</button>
+
+                                </div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="single-featured-cars">
+								<div class="featured-img-box">
+									<div class="featured-cars-img">
+										<img src="../static/img/unsplash_khYVyHiNZo0.png" alt="cars">
+									</div>
+									<div class="featured-model-info">
+										<p>
+											model: 2017
+											<span class="featured-mi-span"> 3100 mi</span> 
+											<span class="featured-hp-span"> 240HP</span>
+											 automatic
+										</p>
+									</div>
+								</div>
+								<div class="featured-cars-txt">
+									<h2><a href="#">BMW <span> x</span>series-6</a></h2>
+									<h3>$75,800</h3>
+									<p>
+										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
+									</p>
+								</div>
+                                <div id="book-box">
+									<button class="welcome-btn new-cars-btn" onclick="window.location.href='/book_form'">Book Now</button>
+
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!--/.container-->
+
+		</section><!--/.featured-cars-->
+		<!--featured-cars end -->
+
+    <!--new-cars start -->
+		<section id="new-cars" class="new-cars" style="background-color: black; padding-bottom: 80px;">
+			<div class="container">
+				<div class="section-header">
+					<p style="font-size: 20px; font-weight: 500;">checkout <span>the</span> latest cars</p>
+					<h2 style="color: white; font-family: Poppins; font-size: 50px; font-weight: 657;">newest cars</h2>
+				</div><!--/.section-header-->
+				<div class="new-cars-content">
+					<div class="owl-carousel owl-theme" id="new-cars-carousel">
+						<div class="new-cars-item">
+							<div class="single-new-cars-item">
+								<div class="row">
+									<div class="col-md-7 col-sm-12">
+										<div class="new-cars-img">
+											<img src="../static/img/unsplash_Rso_zGOg6jw.png" alt="img"/>
+										</div><!--/.new-cars-img-->
+									</div>
+									<div class="col-md-5 col-sm-12">
+										<div class="new-cars-txt">
+											<h2><a href="#">chevrolet camaro <span> za100</span></a></h2>
+											<p>
+												Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
+											</p>
+											<p class="new-cars-para2">
+												Sed ut pers unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. 
+											</p>
+											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
+												view details
+											</button>
+										</div><!--/.new-cars-txt-->	
+									</div><!--/.col-->
+								</div><!--/.row-->
+							</div><!--/.single-new-cars-item-->
+						</div><!--/.new-cars-item-->
+						<div class="new-cars-item">
+							<div class="single-new-cars-item">
+								<div class="row">
+									<div class="col-md-7 col-sm-12">
+										<div class="new-cars-img">
+											<img src="../static/img/unsplash_j1ZzPpxFnpM.png" alt="img"/>
+										</div><!--/.new-cars-img-->
+									</div>
+									<div class="col-md-5 col-sm-12">
+										<div class="new-cars-txt">
+											<h2><a href="#">BMW series-3 wagon</a></h2>
+											<p>
+												Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
+											</p>
+											<p class="new-cars-para2">
+												Sed ut pers unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. 
+											</p>
+											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
+												view details
+											</button>
+										</div><!--/.new-cars-txt-->	
+									</div><!--/.col-->
+								</div><!--/.row-->	
+							</div><!--/.single-new-cars-item-->
+						</div><!--/.new-cars-item-->
+						<div class="new-cars-item">
+							<div class="single-new-cars-item">
+								<div class="row">
+									<div class="col-md-7 col-sm-12">
+										<div class="new-cars-img">
+											<img src="../static/img/unsplash_j1ZzPpxFnpM-1.png" alt="img"/>
+										</div><!--/.new-cars-img-->
+									</div>
+									<div class="col-md-5 col-sm-12">
+										<div class="new-cars-txt">
+											<h2><a href="#">ferrari 488 superfast</a></h2>
+											<p>
+												Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
+											</p>
+											<p class="new-cars-para2">
+												Sed ut pers unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. 
+											</p>
+											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
+												view details
+											</button>
+										</div><!--/.new-cars-txt-->	
+									</div><!--/.col-->
+								</div><!--/.row-->
+							</div><!--/.single-new-cars-item-->
+						</div><!--/.new-cars-item-->
+					</div><!--/#new-cars-carousel-->
+				</div><!--/.new-cars-content-->
+			</div><!--/.container-->
+
+		</section><!--/.new-cars-->
+		<!--new-cars end -->
+
+        <!--brand strat -->
+		<section id="brand"  class="brand" style="background-color: #1e1e1e;">
+			<div class="container">
+				<div class="brand-area">
+					<div class="owl-carousel owl-theme brand-item">
+						<div class="item">
+							<a href="#">
+								<img src="../static/img/image 38.png" alt="brand-image" />
+							</a>
+						</div><!--/.item-->
+						<div class="item">
+							<a href="#">
+								<img src="../static/img/image 37.png" alt="brand-image" />
+							</a>
+						</div><!--/.item-->
+						<div class="item">
+							<a href="#">
+								<img src="../static/img/image 39.png" alt="brand-image" />
+							</a>
+						</div><!--/.item-->
+						<div class="item">
+							<a href="#">
+								<img src="../static/img/image 32.png" alt="brand-image" />
+							</a>
+						</div><!--/.item-->
+
+						<div class="item">
+							<a href="#">
+								<img src="../static/img/image 31.png" alt="brand-image" />
+							</a>
+						</div><!--/.item-->
+
+						<div class="item">
+							<a href="#">
+								<img src="../static/img/image 33.png" alt="brand-image" />
+							</a>
+						</div><!--/.item-->
+                        <div class="item">
+							<a href="#">
+								<img src="../static/img/image 36.png" alt="brand-image" />
+							</a>
+						</div><!--/.item-->
+                        <div class="item">
+							<a href="#">
+								<img src="../static/img/image 35.png" alt="brand-image" />
+							</a>
+						</div><!--/.item-->
+					</div><!--/.owl-carousel-->
+				</div><!--/.clients-area-->
+
+			</div><!--/.container-->
+
+		</section><!--/brand-->	
+		<!--brand end -->
+
+        <!--contact start-->
+		<footer id="contact"  class="contact" style="background-color: black;">
+			<div class="container">
+				<div class="footer-top">
+					<div class="row">
+						<div class="col-md-3 col-sm-6">
+							<div class="single-footer-widget">
+								<div class="footer-logo">
+									<a href="{{ url_for('index') }}">Friends motors</a>
+								</div>
+								<p>
+									Ased do eiusm tempor incidi ut labore et dolore magnaian aliqua. Ut enim ad minim veniam.
+								</p>
+								<div class="footer-contact">
+									<p>friendsmotors@gmail.com</p>
+									<p>+1 (885) 2563154554</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2 col-sm-6">
+							<div class="single-footer-widget">
+								<h2>about devloon</h2>
+								<ul>
+									<li><a href="#">about us</a></li>
+									<li><a href="#">career</a></li>
+									<li><a href="#">terms <span> of service</span></a></li>
+									<li><a href="#">privacy policy</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-3 col-xs-12">
+							<div class="single-footer-widget">
+								<h2>top brands</h2>
+								<div class="row">
+									<div class="col-md-7 col-xs-6">
+										<ul>
+											<li><a href="#">BMW</a></li>
+											<li><a href="#">lamborghini</a></li>
+											<li><a href="#">camaro</a></li>
+											<li><a href="#">audi</a></li>
+											<li><a href="#">infiniti</a></li>
+											<li><a href="#">nissan</a></li>
+										</ul>
+									</div>
+									<div class="col-md-5 col-xs-6">
+										<ul>
+											<li><a href="#">ferrari</a></li>
+											<li><a href="#">porsche</a></li>
+											<li><a href="#">land rover</a></li>
+											<li><a href="#">aston martin</a></li>
+											<li><a href="#">mersedes</a></li>
+											<li><a href="#">opel</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-offset-1 col-md-3 col-sm-6">
+							<div class="single-footer-widget">
+								<h2>news letter</h2>
+								<div class="footer-newsletter">
+									<p>
+										Subscribe to get latest news  update and informations
+									</p>
+								</div>
+								<div class="hm-foot-email">
+									<div class="foot-email-box">
+										<input type="text" class="form-control" placeholder="Add Email">
+									</div><!--/.foot-email-box-->
+									<div class="foot-email-subscribe">
+										<span><i class="fa fa-arrow-right"></i></span>
+									</div><!--/.foot-email-icon-->
+								</div><!--/.hm-foot-email-->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-copyright">
+					<div class="row">
+						<div class="col-sm-6">
+							<p>
+								&copy; copyright.designed and developed by Friends Motors team</a>.
+							</p><!--/p-->
+						</div>
+						<div class="col-sm-6">
+							<div class="footer-social">
+								<a href="#"><i class="fa fa-facebook"></i></a>	
+								<a href="#"><i class="fa fa-instagram"></i></a>
+								<a href="#"><i class="fa fa-linkedin"></i></a>
+								<a href="#"><i class="fa fa-pinterest-p"></i></a>
+								<a href="#"><i class="fa fa-behance"></i></a>	
+							</div>
+						</div>
+					</div>
+				</div><!--/.footer-copyright-->
+			</div><!--/.container-->
+
+			<div id="scroll-Top">
+				<div class="return-to-top">
+					<i class="fa fa-angle-up " id="scroll-top" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
+				</div>
+				
+			</div><!--/.scroll-Top-->
+			
+        </footer><!--/.contact-->
+		<!--contact end-->
+
+		<script src="../static/js/jquery.js"></script>
+        
+		<!--modernizr.min.js-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+		
+		<!--bootstrap.min.js-->
+		<script src="../static/js/bootstrap.min.js"></script>
+		
+		<!-- bootsnav js -->
+		<script src="../static/js/bootsnav.js"></script>
+	
+		<!--owl.carousel.js-->
+		<script src="../static/js/owl.carousel.min.js"></script>
+	
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+	
+		<!--Custom JS-->
+		<script src="../static/js/custom.js"></script>
+	
+
+
+	</body>
+</html>

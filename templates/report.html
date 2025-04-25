@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/reportStyle.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" type="image/icon" href="../static/img/logo.jpg"/>
+
+    <title>Report</title>
+    <style>
+        .bg-mynav {
+            background-color: #1e1e1e;
+        }
+
+        body {
+            font-size: 1.25rem;
+            background-color: #f6f8fa;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        td {
+            line-height: 3rem;
+        }
+
+        /* Animation for table rows */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        tbody tr {
+            animation: fadeInUp 0.5s ease-in-out;
+        }
+
+        /* Animation for Create User Box */
+        @keyframes slideInFromRight {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        #createUserBox {
+            animation: slideInFromRight 0.5s ease-in-out;
+        }
+        
+        /* Add styles for icons */
+        .action-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .action-icons a {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .table {
+            height: 200px;
+            overflow-y: scroll;
+        }
+
+        table {
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+        tr {
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        td,
+        th {
+            padding-block: 10px;
+        }
+        .cards {
+            display: flex;
+            gap: 20px;
+        }
+
+        .card {
+            padding: 20px;
+            border-radius: 20px;
+            min-width: 230px;
+            height: auto;
+            transition: .3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .card--data {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .card h1 {
+            font-size: 30px;
+            margin-top: 10px;
+        }
+
+        .card--icon--lg {
+            font-size: 80px;
+        }
+
+        .card--stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .card--stats span {
+            display: flex;
+            align-items: center;
+        }
+
+        .card--icon {
+            margin-right: 5px;
+        }
+
+        .stat--icon {
+            color: #5f5ce0;
+        }
+
+        .up--arrow {
+            color: #70d7a5;
+        }
+
+        .down--arrow {
+            color: #e86786;
+        }
+
+        .card-1 {
+            background-color: rgba(80, 115, 251, .1);
+        }
+
+        .card-1 .card--title {
+            color: rgba(80, 115, 251, 1);
+        }
+
+        .card-1 .card--icon--lg {
+            color: rgba(80, 115, 251, .4);
+        }
+
+        .card-2 {
+            background-color: rgba(241, 210, 67, .1);
+        }
+
+        .card-2 .card--title {
+            color: rgba(241, 210, 67, 1);
+        }
+
+        .card-2 .card--icon--lg {
+            color: rgba(241, 210, 67, .4);
+        }
+
+        .card-3 {
+            background-color: rgba(112, 215, 165, .1);
+        }
+
+        .card-3 .card--title {
+            color: rgba(112, 215, 165, 1);
+        }
+
+        .card-3 .card--icon--lg {
+            color: rgba(112, 215, 165, .4);
+        }
+
+        .card-4 {
+            background-color: rgba(227, 106, 200, .1);
+        }
+
+        .card-4 .card--title {
+            color: rgba(227, 106, 200, 1);
+        }
+
+        .card-4 .card--icon--lg {
+            color: rgba(227, 106, 200, .4);
+        }
+
+        .card-5 {
+            background-color: rgba(80, 115, 251, .1);
+        }
+
+        .card-5 .card--title {
+            color: rgba(80, 115, 251, 1);
+        }
+
+        .card-5 .card--icon--lg {
+            color: rgba(80, 115, 251, .4);
+        }
+
+        .card-6 {
+            background-color: rgba(80, 115, 251, .1);
+        }
+
+        .card-6 .card--title {
+            color: rgba(80, 115, 251, 1);
+        }
+
+        .card-6 .card--icon--lg {
+            color: rgba(80, 115, 251, .4);
+        }
+
+        .card-7 {
+            background-color: rgba(112, 215, 165, .1);
+        }
+
+        .card-7 .card--title {
+            color: rgba(112, 215, 165, 1);
+        }
+
+        .card-7 .card--icon--lg {
+            color: rgba(112, 215, 165, .4);
+        }
+
+        .icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 1.3rem;
+        }
+
+        .icon-0 {
+            color: #5073fb;
+        }
+
+        .icon-1 {
+            color: #c5bc58;
+        }
+
+        .icon-2 {
+            color: #a280e9;
+        }
+
+        .icon-3 {
+            color: #85ade3;
+        }
+
+        .icon-4 {
+            color: #e36ac8;
+        }
+
+        .icon-5 {
+            color: #70d7a5;
+        }
+
+        .icon-6 {
+            color: #5f5ce0;
+        }
+
+        .icon-7 {
+            color: #e86786;
+        }
+
+        .icon-8 {
+            color: #f1d243;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            position: relative;
+            width: 100%;
+
+        }
+        
+        .main {
+            display: flex;
+            flex-direction: row;
+            min-height: 100vh; /* Make sure the main section fills the entire viewport height */
+            margin-left: 50px; /* Initial margin */
+            transition: margin-left 0.4s ease-in-out; /* Add transition for margin */
+
+        }
+        
+        
+        .main--content {
+            padding: 20px;
+            flex: 1;
+        }
+        .overview {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .overview .title h2 {
+            margin: 0;
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+       
+        .recent--customers,
+        .transaction--per--month,
+        .sales--by--salesperson,
+        .best--seller--cars {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .recent--customers .title h2,
+        .transaction--per--month .title h2,
+        .sales--by--salesperson .title h2,
+        .best--seller--cars .title h2 {
+            margin: 0;
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .table {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f1f1f1;
+        }
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+        .overview .cards-container {
+            max-height: 400px; /* Adjust the max-height as needed */
+            overflow-y: auto;
+        }
+        .overview {
+            overflow-y: auto;
+        }
+     
+        
+        .sidebar {
+            width: 50px; /* Initial width */
+            transition: width 0.4s ease-in-out; /* Add transition for width */
+            top: 0;
+            left: 0;
+            bottom: 0;
+            position: relative;
+            background-color: #1e1e1e; /* Background color */
+            z-index: 1; /* Ensure sidebar appears next to content */
+        }
+        .sidebar {
+            
+            width: 50px; /* Initial width */
+            transition: width 0.4s ease-in-out, left 0.4s ease-in-out; /* Add transition for width and left */
+            top: 0;
+            left: 0; /* Ensure it starts from the left */
+            bottom: 0;
+            position: fixed; /* Fixed position to stay visible when scrolling */
+            background-color: #1e1e1e; /* Background color */
+            z-index: 1; /* Ensure sidebar appears next to content */
+        }
+
+        .sidebar:hover {
+            width: 250px; /* Expanded width of the sidebar */
+        }
+
+        .sidebar:hover .sidebar-content {
+            left: 250px; /* Move content to the right when sidebar is expanded */
+        }
+
+        .sidebar-content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0; /* Initially hide content */
+            background-color: #1e1e1e;
+            height: 100%;
+            width: 200px; /* Width of the content */
+            padding-top: 20px;
+            transition: left 0.4s ease-in-out; /* Add transition for left position */
+        }
+
+        .sidebar:hover {
+            width: 250px; /* Expanded width of the sidebar */
+        }
+
+        .sidebar:hover .sidebar-icons {
+            display: flex; /* Show icons when sidebar is hovered */
+        }
+
+        .sidebar .sidebar-content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 50px; /* Initially hide content */
+            background-color: #1e1e1e;
+            height: 100%;
+            width: 200px; /* Width of the content */
+            padding-top: 20px;
+            transition: left 0.4s ease-in-out; /* Add transition for left position */
+        }
+
+        .sidebar:hover .sidebar-content {
+            display: block;
+            left: 50px; /* Move content to the right when sidebar is expanded */
+        }
+
+        /* Show icons even when sidebar is collapsed */
+        .sidebar .sidebar-icons {
+            display: none; /* Initially hide icons */
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            /* Add transition */
+            transition: padding 0.4s ease-in-out;
+        }
+
+        .sidebar a:hover {
+            padding: 10px 25px;
+        }
+
+        .sidebar img {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body style="font-family: 'Poppins';">
+    <section class="main">
+        <div class="sidebar">
+            <div class="sidebar-icons" style="display: flex; flex-direction: column; align-items: center;">
+                <div style="display: flex; align-items: center; justify-content: center; padding-top: 20px;">
+                    <img src="../static/img/logo.jpg" alt="Friends Motors">
+                </div>
+                <br>
+                <br>
+                <a href="#">
+                    <img src="../static/img/team-fill.png" alt="Customer Icon"> 
+                </a>
+                <br>
+                <a href="#">
+                    <img src="../static/img/account-pin-box-line.png" alt="Salesperson Icon"> 
+                </a>
+                <br>
+                <a href="#">
+                    <img src="../static/img/contract-fill.png" alt="Transaction Icon"> 
+                </a>
+                <br>
+                <a href="#">
+                    <img src="../static/img/car-line.png" alt="Vehicle Icon"> 
+                </a>
+                <br>
+                <a href="#">
+                    <img src="../static/img/bookmark-fill.png" alt="Book Icon"> 
+                </a>
+                <br>
+                <a href="#">
+                    <img src="../static/img/file-chart-line.png" alt="Report Icon"> 
+                </a>
+            </div>
+            <div class="sidebar-content">
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <div>
+                        <img src="../static/img/logo.jpg" alt="Friends Motors" style="width: 30px; margin-right: 10px;">
+                    </div>
+                    <div>
+                        <p style="font-size: 20px; color: white; margin: 0;">FRIENDS MOTORS</p>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <a href="#" onclick="window.location.href='/customerM'">
+                    <img src="../static/img/team-fill.png" alt="Customer Icon" style="margin-right: 10px;"> Customers
+                </a>
+                <br>
+                <a href="#" onclick="window.location.href='/salespersonT'">
+                    <img src="../static/img/account-pin-box-line.png" alt="Salesperson Icon" style="margin-right: 10px;"> Salesperson
+                </a>
+                <br>
+                <a href="#" onclick="window.location.href='/transactionM'">
+                    <img src="../static/img/contract-fill.png" alt="Transaction Icon" style="margin-right: 10px;"> Transaction Details
+                </a>
+                <br>
+                <a href="#" onclick="window.location.href='/vehicleM'">
+                    <img src="../static/img/car-line.png" alt="Vehicle Icon" style="margin-right: 10px;"> Vehicle
+                </a>
+                <br>
+                <a href="#" onclick="window.location.href='/bookM'">
+                    <img src="../static/img/bookmark-fill.png" alt="Book Icon" style="margin-right: 10px;"> Book
+                </a>
+                <br>
+                <a href="#" onclick="window.location.href='/report'">
+                    <img src="../static/img/file-chart-line.png" alt="Book Icon" style="margin-right: 10px;"> Report
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <a href="#" onclick="window.location.href='/Mlog'">
+                    <img src="../static/img/logout-box-line.png" alt="Log-out Icon" style="margin-right: 10px;"> Log-out
+                </a>
+            </div>
+        </div>
+
+        <div class="main--content">
+            <div class="overview">
+                <div class="title">
+                    <h2 class="section--title" style="padding-bottom: 20px;">Overview</h2>
+                </div>
+                <div style="font-family: 'Roboto'; display: flex; align-content: center; align-items: center;">
+                    <div class="cards" style="font-family: 'Roboto'; display: flex; align-content: center; align-items: center;">
+                        <div class="card card-1">
+                            <div class="card--data">
+                                <div class="card--content">
+                                    <h5 class="card--title">Total Salesperson</h5>
+                                    <h1 id="salespersonCount"></h1>
+                                </div>
+                                <i class="ri-user-2-line card--icon--lg"></i>
+                            </div>
+                        </div>
+                        <div class="card card-2">
+                            <div class="card--data">
+                                <div class="card--content">
+                                    <h5 class="card--title">Total Customers</h5>
+                                    <h1 id="customerCount"></h1>
+                                </div>
+                                <i class="ri-user-line card--icon--lg"></i>
+                            </div>
+                        </div>
+                        <div class="card card-3">
+                            <div class="card--data">
+                                <div class="card--content">
+                                    <h5 class="card--title">Total Bookings</h5>
+                                    <h1 id="bookCount"></h1>
+                                </div>
+                                <i class="ri-pencil-line card--icon--lg"></i>
+                            </div>
+                        </div>
+                        <div class="card card-4">
+                            <div class="card--data">
+                                <div class="card--content">
+                                    <h5 class="card--title">Vehicles Available</h5>
+                                    <h1 id="availableVehiclesCount"></h1>
+                                </div>
+                                <i class="ri-car-line card--icon--lg"></i>
+                            </div>
+                        </div>
+                        <div class="card card-5">
+                            <div class="card--data">
+                                <div class="card--content">
+                                    <h5 class="card--title">Transactions</h5>
+                                    <h1 id="transactionCount"></h1>
+                                </div>
+                                <i class="ri-file-line card--icon--lg"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="recent--customers">
+                <div class="title">
+                    <h2 class="section--title">Recent Customers</h2>
+                </div>
+                <div class="table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Address</th>
+                            <th>Vehicle Model</th>
+                            <th>Date</th>
+                            <th>Total Price</th>
+                        </tr>
+                        </thead>
+                        <tbody id="customerTableBody">
+                        <!-- Data will be populated here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="transaction--per--month">
+                <div class="title">
+                    <h2 class="section--title">Transactions Per Month</h2>
+                </div>
+                <div class="table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Total Transactions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="transactionTableBody">
+                        <!-- Data will be populated here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="sales--by--salesperson">
+                <div class="title">
+                    <h2 class="section--title">Total Sales by Salesperson</h2>
+                </div>
+                <div class="table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>SalesPerson ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Total Sales</th>
+                        </tr>
+                        </thead>
+                        <tbody id="salespersonTableBody">
+                        <!-- Data will be populated here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="sales--by--salesperson">
+                <div class="title">
+                    <h2 class="section--title">Total Sales Profit by Salesperson</h2>
+                </div>
+                <div class="table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>SalesPerson ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Total Profit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salespersonProfitTableBody">
+                            <!-- Data will be populated here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="best--seller--cars">
+                <div class="title">
+                    <h2 class="section--title">Best Seller Cars</h2>
+                </div>
+                <div class="table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Vehicle Model</th>
+                            <th>Total Purchases</th>
+                        </tr>
+                        </thead>
+                        <tbody id="bestsellerTableBody">
+                        <!-- Data will be populated here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+        
+    
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        // Function to fetch and display data
+        function fetchData(url, elementId, dataKey) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById(elementId).innerText = data[dataKey];
+                })
+                .catch(error => {
+                    console.error(`Error fetching data from ${url}:`, error);
+                    document.getElementById(elementId).innerText = 'Error loading data';
+                });
+        }
+
+        // Fetch and display counts
+        fetchData('/api/vehicles/available/count', 'availableVehiclesCount', 'num_of_available_vehicles');
+        fetchData('/api/transaction/count', 'transactionCount', 'num_of_transactions');
+        fetchData('/api/salesperson/count', 'salespersonCount', 'num_of_salespersons');
+        fetchData('/api/book/count', 'bookCount', 'num_of_records');
+        fetchData('/api/customer_count', 'customerCount', 'TotalCustomers');
+
+        // Function to fetch and populate table data
+        function fetchTableData(url, tableBodyId, columns) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById(tableBodyId);
+                    tableBody.innerHTML = '';
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        columns.forEach(column => {
+                            const cell = document.createElement('td');
+                            cell.innerText = item[column];
+                            row.appendChild(cell);
+                        });
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error(`Error fetching data from ${url}:`, error);
+                });
+        }
+
+        // Fetch and populate tables
+        fetchTableData('/api/latest_customers', 'customerTableBody', ['CId', 'CFirstName', 'CLastName', 'CAddress', 'VModel', 'TDate', 'TotalPrice']);
+        fetchTableData('/api/bestseller_cars', 'bestsellerTableBody', ['VModel', 'TotalPurchases']);
+        fetchTableData('/api/monthly_transaction', 'transactionTableBody', ['Month', 'TotalTransactions']);
+        fetchTableData('/api/salesperson_sales', 'salespersonTableBody', ['SId', 'FirstName', 'LastName', 'TotalSales']);
+        fetchTableData('/api/salesperson_profit', 'salespersonProfitTableBody', ['SId', 'FirstName', 'LastName', 'TotalProfit']);
+
+    });
+
+    // Sidebar toggle functionality
+    document.querySelector('.menu').onclick = function() {
+        document.querySelector('.sidebar').classList.toggle('active');
+        document.querySelector('.main--content').classList.toggle('active');
+    };
+    </script>
+</body>
+</html>
+
+                   
+

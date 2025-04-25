@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/icon" href="../static/img/logo.jpg"/>
+
+    <title>Transaction CRUD</title>
+
+    <style>
+        /* Your CSS styles here */
+
+        .bg-mynav {
+            background-color: #1e1e1e;
+        }
+
+        body {
+            font-size: 1.25rem;
+            background-color: #f6f8fa;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        td {
+            line-height: 3rem;
+        }
+
+        /* Animation for table rows */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        tbody tr {
+            animation: fadeInUp 0.5s ease-in-out;
+        }
+
+        /* Animation for Create User Box */
+        @keyframes slideInFromRight {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        #createUserBox {
+            animation: slideInFromRight 0.5s ease-in-out;
+        }
+
+        /* Adjusted sidebar styling */
+        .sidebar {
+            height: 100%;
+            width: 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #1e1e1e;
+            padding-top: 20px;
+            overflow-x: hidden;
+            transition: width 0.4s ease-in-out;
+            z-index: 1; /* Ensure sidebar appears above content */
+        }
+
+        /* Show icons even when sidebar is collapsed */
+        .sidebar .sidebar-icons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar:hover {
+            width: 250px;
+        }
+
+        .sidebar-content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 50px;
+            background-color: #1e1e1e;
+            height: 100%;
+            padding-top: 20px;
+            transition: left 0.4s ease-in-out;
+        }
+
+        .sidebar:hover .sidebar-content {
+            display: block;
+            left: 0;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            /* Add transition */
+            transition: padding 0.4s ease-in-out;
+        }
+
+        .sidebar a:hover {
+            padding: 10px 25px;
+        }
+
+        .sidebar img {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        .content {
+            margin-left: 50px; /* Initial margin */
+            padding: 20px;
+            transition: margin-left 0.4s ease-in-out; /* Add transition for margin */
+        }
+
+        /* Adjust content margin when sidebar expands */
+        .sidebar:hover ~ .content {
+            margin-left: 250px; /* Match the expanded width of the sidebar */
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Add styles for icons */
+        .action-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .action-icons a {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+       
+    </style>
+</head>
+<body style="font-family: 'Poppins';">
+
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-icons" style="display: flex; flex-direction: column; align-items: center;">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <img src="../static/img/logo.jpg" alt="Friends Motors">
+        </div>
+        <br>
+        <br>
+        <a href="#">
+            <img src="../static/img/team-fill.png" alt="Customer Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/contract-fill.png" alt="Transaction Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/car-line.png" alt="Vehicle Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/bookmark-fill.png" alt="Book Icon"> 
+        </a>
+    </div>
+    <div class="sidebar-content">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <div>
+                <img src="../static/img/logo.jpg" alt="Friends Motors" style="width: 30px; margin-right: 10px;">
+            </div>
+            <div>
+                <p style="font-size: 20px; color: white; margin: 0;">FRIENDS MOTORS</p>
+            </div>
+        </div>
+        <br>
+        <br>
+        <a href="#" onclick="window.location.href='/customer'">
+            <img src="../static/img/team-fill.png" alt="Customer Icon" style="margin-right: 10px;"> Customers
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/transaction'">
+            <img src="../static/img/contract-fill.png" alt="Transaction Icon" style="margin-right: 10px;"> Transaction Details
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/vehicle'">
+            <img src="../static/img/car-line.png" alt="Vehicle Icon" style="margin-right: 10px;"> Vehicle
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/book'">
+            <img src="../static/img/bookmark-fill.png" alt="Book Icon" style="margin-right: 10px;"> Book
+        </a>
+    </div>
+    <div class="sidebar-footer">
+        <a href="#" onclick="window.location.href='/Slog'">
+            <img src="../static/img/logout-box-line.png" alt="Log-out Icon" style="margin-right: 10px;"> Log-out
+        </a>
+    </div>
+</div>
+<!-- Page content -->
+<div class="content">
+    <nav class="navbar navbar-dark bg-mynav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/salesperson">Salesperson Control Page - Transaction</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="d-flex bd-highlight mb-3">
+            <div class="me-auto p-2 bd-highlight"><h2>Users</h2></div>
+            <div class="p-2 bd-highlight">
+                <button type="button" class="btn btn-secondary" onclick="showUserCreateBox()">Create</button>
+            </div>
+        </div>
+        <!-- Search functionality -->
+        <div class="d-flex mb-3">
+            <select id="searchAttribute" class="form-select" style="width: 200px; margin-right: 10px;">
+                <option value="TId">Transaction ID</option>
+                <option value="CId">Customer ID</option>
+                <option value="SId">Salesperson ID</option>
+                <option value="MId">Manager ID</option>
+                <option value="VId">Vehicle ID</option>
+                <option value="TotalPrice">Total Price</option>
+                <option value="TDate">Transaction Date</option>
+                <option value="PMethod">Payment Method</option>
+            </select>
+            <input type="text" id="searchValue" class="form-control" placeholder="Search...">
+            <button class="btn btn-secondary" onclick="fetchTransactions()" style="margin-left: 10px; background-color: green;">Reload</button> <!-- Reload button -->
+            <button class="btn btn-primary" onclick="searchTransaction()" style="margin-left: 10px;">Search</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Transaction ID</th>
+                    <th scope="col">Customer ID</th>
+                    <th scope="col">Salesperson ID</th>
+                    <th scope="col">Manager ID</th>
+                    <th scope="col">Vehicle ID</th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col">Transaction Date</th>
+                    <th scope="col">Payment Method</th> 
+                    <th scope="col">Actions</th> <!-- Add a new column for actions -->
+                </tr>
+                </thead>
+                <tbody id="mytable">
+                <tr>
+                    <th scope="row" colspan="5">Loading...</th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        
+         <!-- Animated Edit Transaction Box -->
+         <div id="editTransactionBox" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    Edit Transaction
+                </div>
+                <div class="card-body">
+                    <!-- Form to edit transaction -->
+                    <form id="editTransactionForm">
+                        <input type="hidden" id="editTransactionId">
+                        <div class="mb-3">
+                            <label for="editCustomerId" class="form-label">Customer ID</label>
+                            <input type="text" class="form-control" id="editCustomerId" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editSalesPersonId" class="form-label">SalesPerson ID</label>
+                            <input type="text" class="form-control" id="editSalesPersonId" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editManagerId" class="form-label">Manager ID</label>
+                            <input type="text" class="form-control" id="editManagerId" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editVehicleId" class="form-label">Vehicle ID</label>
+                            <input type="text" class="form-control" id="editVehicleId" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTotalPrice" class="form-label">Total Price</label>
+                            <input type="text" class="form-control" id="editTotalPrice" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTransactionDate" class="form-label">Transaction Date</label>
+                            <input type="date" class="form-control" id="editTransactionDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPaymentMethod" class="form-label">Payment Method</label>
+                            <input type="text" class="form-control" id="editPaymentMethod" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Animated Create User Box -->
+        <div id="createUserBox" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    Create New Tranaction 
+                </div>
+                <div class="card-body">
+                    <!-- Form to create transaction -->
+                    <form id="createTransactionForm">
+                        <div class="mb-3">
+                            <label for="customerId" class="form-label">Customer ID</label>
+                            <input type="text" class="form-control" id="customerId" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="salespersonId" class="form-label">Salesperson ID</label>
+                            <input type="text" class="form-control" id="salespersonId" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="managerId" class="form-label">Manager ID</label>
+                            <input type="text" class="form-control" id="managerId" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="vehicleId" class="form-label">Vehicle ID</label>
+                            <input type="text" class="form-control" id="vehicleId" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="totalPrice" class="form-label">Total Price</label>
+                            <input type="text" class="form-control" id="totalPrice" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="transactionDate" class="form-label">Transaction Date</label>
+                            <input type="date" class="form-control" id="transactionDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="paymentMethod" class="form-label">Payment Method</label>
+                            <input type="text" class="form-control" id="paymentMethod" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetchTransactions();
+    });
+
+    function fetchTransactions() {
+        fetch('/api/transaction')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('mytable');
+                tableBody.innerHTML = ''; // Clear previous data
+
+                if (data.error) {
+                    console.error(data.error);
+                    return;
+                }
+
+                data.forEach(transaction => {
+                    const row = `
+                        <tr id="transaction-${transaction.TId}">
+                            <td>${transaction.TId}</td>
+                            <td>${transaction.CId}</td>
+                            <td>${transaction.SId}</td>
+                            <td>${transaction.MId}</td>
+                            <td>${transaction.VId}</td>
+                            <td>${transaction.TotalPrice}</td>
+                            <td>${transaction.TDate}</td>
+                            <td>${transaction.PMethod}</td>
+                            <td>
+                                <button class="btn btn-warning" onclick="editTransaction(${transaction.TId})">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteTransaction(${transaction.TId})">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            })
+            .catch(error => console.error('Error fetching transactions:', error));
+    }
+
+    document.getElementById('createTransactionForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        
+        // Collect form data
+        const formData = {
+            customerId: document.getElementById('customerId').value,
+            salespersonId: document.getElementById('salespersonId').value,
+            managerId: document.getElementById('managerId').value,
+            vehicleId: document.getElementById('vehicleId').value,
+            totalPrice: document.getElementById('totalPrice').value,
+            transactionDate: document.getElementById('transactionDate').value,
+            paymentMethod: document.getElementById('paymentMethod').value
+        };
+        
+        // Send a POST request to your Flask server to create the transaction
+        fetch('/api/transaction', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Check if the response indicates success or failure
+            if (data.message) {
+                // Show a success message to the user
+                alert(data.message);
+                // Optionally, redirect to another page or refresh the transaction list
+                fetchTransactions(); // Refresh transaction list after adding a new transaction
+            } else {
+                // Show an error message to the user
+                alert(data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error creating transaction:', error);
+            // Show an error message to the user
+            alert('An error occurred while creating transaction.');
+        });
+    });
+    function showUserCreateBox() {
+        document.getElementById('createUserBox').style.display = 'block';
+    }
+     
+
+    function deleteTransaction(transactionId) {
+    // Send a DELETE request to your Flask server to delete the transaction record
+    fetch(`/api/transaction/${transactionId}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok) {
+            // Remove the row from the table if deletion is successful
+            const row = document.querySelector(`#transaction-${transactionId}`);
+            row.remove();
+            // Show a success message to the user
+            alert('Transaction deleted successfully!');
+        } else {
+            // Show an error message to the user
+            alert('Failed to delete transaction.');
+        }
+    })
+    .catch(error => {
+        console.error('Error deleting transaction:', error);
+        // Show an error message to the user
+        alert('An error occurred while deleting transaction.');
+    });
+    }
+    function editTransaction(transactionId) {
+        // Fetch the transaction details by ID
+        fetch(`/api/transaction/${transactionId}`)
+            .then(response => response.json())
+            .then(transaction => {
+                // Populate the edit form with the transaction's current details
+                document.getElementById('editTransactionId').value = transaction.TId;
+                document.getElementById('editCustomerId').value = transaction.CId;
+                document.getElementById('editSalesPersonId').value = transaction.SId;
+                document.getElementById('editManagerId').value = transaction.MId;
+                document.getElementById('editVehicleId').value = transaction.VId;
+                document.getElementById('editTotalPrice').value = transaction.TotalPrice;
+                document.getElementById('editTransactionDate').value = transaction.TDate;
+                document.getElementById('editPaymentMethod').value = transaction.PMethod;
+
+                // Show the edit form
+                document.getElementById('editTransactionBox').style.display = 'block';
+            })
+            .catch(error => console.error('Error fetching transaction details:', error));
+    }
+
+    // Function to handle form submission for editing a transaction
+    document.getElementById('editTransactionForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        
+        // Collect form data
+        const formData = {
+            tid: document.getElementById('editTransactionId').value,
+            customer_id: document.getElementById('editCustomerId').value,
+            salesperson_id: document.getElementById('editSalesPersonId').value,
+            manager_id: document.getElementById('editManagerId').value,
+            vehicle_id: document.getElementById('editVehicleId').value,
+            total_price: document.getElementById('editTotalPrice').value,
+            transaction_date: document.getElementById('editTransactionDate').value,
+            payment_method: document.getElementById('editPaymentMethod').value
+        };
+        
+        // Send a PUT request to your Flask server to update the customer
+        fetch(`/api/transaction/${formData.tid}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Check if the response indicates success or failure
+            if (data.message) {
+                // Show a success message to the user
+                alert(data.message);
+                // Optionally, refresh the transaction list
+                fetchTransactions(); // Refresh transaction list after editing a transaction
+            } else {
+                // Show an error message to the user
+                alert(data.error);
+            }
+            // Hide the edit form after submission
+            document.getElementById('editTransactionBox').style.display = 'none';
+        })
+        .catch(error => {
+            console.error('Error updating transaction:', error);
+            // Show an error message to the user
+            alert('An error occurred while updating transaction.');
+        });
+    });
+    
+    function showUserEditBox() {
+        document.getElementById('editTransactionBox').style.display = 'block';
+    }
+    
+    // Search Transaction function
+    function searchTransaction() {
+        const attribute = document.getElementById('searchAttribute').value;
+        const value = document.getElementById('searchValue').value;
+        
+        if (!value) {
+            alert('Please enter a search value');
+            return;
+        }
+        
+        fetch('/searchT', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ attribute, value }),
+        })
+        
+        .then(response => response.json())
+        .then(data => {
+            console.log('Data received:', data); // Debugging statement
+            const table = document.getElementById('mytable');
+            table.innerHTML = ''; // Clear the table
+            
+            if (data.transactions.length === 0) {
+                const noResultsRow = `<tr><td colspan="8">No results found</td></tr>`;
+                table.insertAdjacentHTML('beforeend', noResultsRow);
+                return;
+            }
+
+            data.transactions.forEach(transaction => {
+                const row = `<tr>
+                    <td>${transaction.TId}</td>
+                    <td>${transaction.CId}</td>
+                    <td>${transaction.SId}</td>
+                    <td>${transaction.MId}</td>
+                    <td>${transaction.VId}</td>
+                    <td>${transaction.TotalPrice}</td>
+                    <td>${transaction.TDate}</td>
+                    <td>${transaction.PMethod}</td>
+                    <td class="action-icons">
+                        <button class="btn btn-warning" onclick="editTransaction(${transaction.TId})">Edit</button>
+                        <button class="btn btn-danger" onclick="deleteTransaction(${transaction.TId})">Delete</button>
+                    </td>
+                </tr>`;
+                console.log('Adding row:', row); // Debugging statement
+                table.insertAdjacentHTML('beforeend', row);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+</script>
+<script src="index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.">
+
+</script>
+</body>
+</html>

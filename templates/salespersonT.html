@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/icon" href="../static/img/logo.jpg"/>
+
+    <title>Salesperson CRUD</title>
+
+    <style>
+        .bg-mynav {
+            background-color: #1e1e1e;
+        }
+
+        body {
+            font-size: 1.25rem;
+            background-color: #f6f8fa;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        td {
+            line-height: 3rem;
+        }
+
+        /* Animation for table rows */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        tbody tr {
+            animation: fadeInUp 0.5s ease-in-out;
+        }
+
+        /* Animation for Create User Box */
+        @keyframes slideInFromRight {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        #createUserBox {
+            animation: slideInFromRight 0.5s ease-in-out;
+        }
+
+        /* Adjusted sidebar styling */
+        .sidebar {
+            height: 100%;
+            width: 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #1e1e1e;
+            padding-top: 20px;
+            overflow-x: hidden;
+            transition: width 0.4s ease-in-out;
+            z-index: 1; /* Ensure sidebar appears above content */
+        }
+
+        /* Show icons even when sidebar is collapsed */
+        .sidebar .sidebar-icons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar:hover {
+            width: 250px;
+        }
+
+        .sidebar-content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 50px;
+            background-color: #1e1e1e;
+            height: 100%;
+            padding-top: 20px;
+            transition: left 0.4s ease-in-out;
+        }
+
+        .sidebar:hover .sidebar-content {
+            display: block;
+            left: 0;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            /* Add transition */
+            transition: padding 0.4s ease-in-out;
+        }
+
+        .sidebar a:hover {
+            padding: 10px 25px;
+        }
+
+        .sidebar img {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        .content {
+            margin-left: 50px; /* Initial margin */
+            padding: 20px;
+            transition: margin-left 0.4s ease-in-out; /* Add transition for margin */
+        }
+
+        /* Adjust content margin when sidebar expands */
+        .sidebar:hover ~ .content {
+            margin-left: 250px; /* Match the expanded width of the sidebar */
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+         /* Add styles for icons */
+         .action-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .action-icons a {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body style="font-family: 'Poppins';">
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-icons" style="display: flex; flex-direction: column; align-items: center;">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <img src="../static/img/logo.jpg" alt="Friends Motors">
+        </div>
+        <br>
+        <br>
+        <a href="#">
+            <img src="../static/img/team-fill.png" alt="Customer Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/account-pin-box-line.png" alt="Salesperson Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/contract-fill.png" alt="Transaction Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/car-line.png" alt="Vehicle Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/bookmark-fill.png" alt="Book Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/file-chart-line.png" alt="Report Icon"> 
+        </a>
+    </div>
+    <div class="sidebar-content">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <div>
+                <img src="../static/img/logo.jpg" alt="Friends Motors" style="width: 30px; margin-right: 10px;">
+            </div>
+            <div>
+                <p style="font-size: 20px; color: white; margin: 0;">FRIENDS MOTORS</p>
+            </div>
+        </div>
+        <br>
+        <br>
+        <a href="#" onclick="window.location.href='/customerM'">
+            <img src="../static/img/team-fill.png" alt="Customer Icon" style="margin-right: 10px;"> Customers
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/salespersonT'">
+            <img src="../static/img/account-pin-box-line.png" alt="Salesperson Icon" style="margin-right: 10px;"> Salesperson
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/transactionM'">
+            <img src="../static/img/contract-fill.png" alt="Transaction Icon" style="margin-right: 10px;"> Transaction Details
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/vehicleM'">
+            <img src="../static/img/car-line.png" alt="Vehicle Icon" style="margin-right: 10px;"> Vehicle
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/bookM'">
+            <img src="../static/img/bookmark-fill.png" alt="Book Icon" style="margin-right: 10px;"> Book
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/report'">
+            <img src="../static/img/file-chart-line.png" alt="Book Icon" style="margin-right: 10px;"> Report
+        </a>
+    </div>
+    <div class="sidebar-footer">
+        <a href="#" onclick="window.location.href='/Mlog'">
+            <img src="../static/img/logout-box-line.png" alt="Log-out Icon" style="margin-right: 10px;"> Log-out
+        </a>
+    </div>
+</div>
+<!-- Page content -->
+<div class="content">
+    <nav class="navbar navbar-dark bg-mynav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/manager">Manager Control Page - SalesPerson</a>
+
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="d-flex bd-highlight mb-3">
+            <div class="me-auto p-2 bd-highlight"><h2>Users</h2></div>
+            <div class="p-2 bd-highlight">
+                <button type="button" class="btn btn-secondary" onclick="showUserCreateBox()">Create</button>
+            </div>
+        </div>
+     
+        <!-- Search functionality -->
+        <div class="d-flex mb-3">
+            <select id="searchAttribute" class="form-select" style="width: 200px; margin-right: 10px;">
+                <option value="SId">ID</option>
+                <option value="EHireDate">Hire Date</option>
+                <option value="EFirstName">First Name</option>
+                <option value="ELastName">Last Name</option>
+                <option value="EEmail">Email</option>
+                <option value="EPhoneNumber">Phone</option>
+                <option value="ESalary">Salary</option>
+                <option value="EAddress">Address</option>
+                <option value="EDateOfBirth">Date of Birth</option>
+                <option value="CommissionRate">Commision Rate</option>
+            </select>
+            <input type="text" id="searchValue" class="form-control" placeholder="Search...">
+            <button class="btn btn-secondary" onclick="fetchSalesPerson()" style="margin-left: 10px; background-color: green;">Reload</button> <!-- Reload button -->
+            <button class="btn btn-primary" onclick="searchSalesperson()" style="margin-left: 10px;">Search</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Employee ID</th>
+                    <th scope="col">Hire Date</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Date Of Birth</th>
+                    <th scope="col">Commission Rate</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody id="mytable">
+                <tr>
+                    <th scope="row" colspan="5">Loading...</th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Animated Edit salesPerson Box -->
+        <div id="editSalesPersonBox" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    Edit Salesperson
+                </div>
+                <div class="card-body">
+                    <!-- Form to edit salesPerson -->
+                    <form id="editSalesPersonForm">
+                        <input type="hidden" id="editSalesPersonId">
+                        <div class="mb-3">
+                            <label for="editHireDate" class="form-label">Hire Date</label>
+                            <input type="date" class="form-control" id="editHireDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editFirstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="editFirstName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editLastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="editLastName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmail" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="editEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPhone" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="editPhone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editSalary" class="form-label">Salary</label>
+                            <input type="text" class="form-control" id="editSalary" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAddress" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="editAddress" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDob" class="form-label">Date Of Birth</label>
+                            <input type="date" class="form-control" id="editDob" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCommissionRate" class="form-label">Commission Rate</label>
+                            <input type="text" class="form-control" id="editCommissionRate" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Animated Create User Box -->
+        <div id="createUserBox" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    Create New User
+                </div>
+                <div class="card-body">
+                    <!-- Form to create user -->
+                    <form id="createSalesPersonForm">
+                        <div class="mb-3">
+                            <label for="EHireDate" class="form-label">Hire Date</label>
+                            <input type="date" class="form-control" id="EHireDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="EFirstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="EFirstName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ELastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="ELastName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="EEmail" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="EEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="EPhoneNumber" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="EPhoneNumber" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ESalary" class="form-label">Salary</label>
+                            <input type="text" class="form-control" id="ESalary" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="EAddress" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="EAddress" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="EDateOfBirth" class="form-label">Date Of Birth</label>
+                            <input type="date" class="form-control" id="EDateOfBirth" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="CommissionRate" class="form-label">Commission Rate</label>
+                            <input type="text" class="form-control" id="CommissionRate" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetchSalesPerson();
+    });
+
+    function fetchSalesPerson() {
+        fetch('/api/salesPerson')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('mytable');
+                tableBody.innerHTML = ''; // Clear previous data
+
+                if (data.error) {
+                    console.error(data.error);
+                    return;
+                }
+
+                data.forEach(salesPerson => {
+                    const row = `
+                        <tr id="salesPerson-${salesPerson.SId}">
+                            <td>${salesPerson.SId }</td>
+                            <td>${salesPerson.EHireDate}</td>
+                            <td>${salesPerson.EFirstName}</td>
+                            <td>${salesPerson.ELastName}</td>
+                            <td>${salesPerson.EEmail}</td>
+                            <td>${salesPerson.EPhoneNumber}</td>
+                            <td>${salesPerson.ESalary}</td>
+                            <td>${salesPerson.EAddress}</td>
+                            <td>${salesPerson.EDateOfBirth}</td>
+                            <td>${salesPerson.CommissionRate}</td>
+                            <td>
+                                <button class="btn btn-warning" onclick="editSalesPerson(${salesPerson.SId})">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteSalesPerson(${salesPerson.SId})">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            })
+            .catch(error => console.error('Error fetching salesPerson:', error));
+    }
+    function showUserCreateBox() {
+        document.getElementById('createUserBox').style.display = 'block';
+    }
+    // Function to handle form submission for creating a new salesPerson
+    document.getElementById('createSalesPersonForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        
+        // Collect form data
+        const formData = {
+            EHireDate: document.getElementById('EHireDate').value,
+            EFirstName: document.getElementById('EFirstName').value,
+            ELastName: document.getElementById('ELastName').value,
+            EEmail: document.getElementById('EEmail').value,
+            EPhoneNumber: document.getElementById('EPhoneNumber').value,
+            ESalary: document.getElementById('ESalary').value,
+            EAddress: document.getElementById('EAddress').value,
+            EDateOfBirth: document.getElementById('EDateOfBirth').value,
+            CommissionRate: document.getElementById('CommissionRate').value
+        };
+
+        // Send a POST request to your Flask server to create the salesperson
+        fetch('/api/salesPerson', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Check if the response indicates success or failure
+            if (data.message) {
+                // Show a success message to the user
+                alert(data.message);
+                // Optionally, redirect to another page or refresh the salesperson list
+                fetchSalesPerson(); // Refresh salesperson list after adding a new salesperson
+            } else {
+                // Show an error message to the user
+                alert(data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error creating salesperson:', error);
+            // Show an error message to the user
+            alert('An error occurred while creating salesperson.');
+        });
+    });        
+
+    function deleteSalesPerson(salesPersonId) {
+    // Send a DELETE request to your Flask server to delete the customer record
+    fetch(`/api/salesPerson/${salesPersonId}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok) {
+            // Remove the row from the table if deletion is successful
+            const row = document.querySelector(`#salesPerson-${salesPersonId}`);
+            row.remove();
+            // Show a success message to the user
+            alert('SalesPerson deleted successfully!');
+        } else {
+            // Show an error message to the user
+            alert('Failed to delete salesPerson.');
+        }
+    })
+    .catch(error => {
+        console.error('Error deleting salesPerson:', error);
+        // Show an error message to the user
+        alert('An error occurred while deleting salesPerson.');
+    });
+    }
+    function editSalesPerson(salesPersonId) {
+    // Fetch the salesPerson details by ID
+    fetch(`/api/salesPerson/${salesPersonId}`)
+        .then(response => response.json())
+        .then(salesPerson => {
+            // Populate the edit form with the salesPerson's current details
+            document.getElementById('editSalesPersonId').value = salesPerson.SId;
+            document.getElementById('editHireDate').value = salesPerson.EHireDate;
+            document.getElementById('editFirstName').value = salesPerson.EFirstName;
+            document.getElementById('editLastName').value = salesPerson.ELastName;
+            document.getElementById('editEmail').value = salesPerson.EEmail;
+            document.getElementById('editPhone').value = salesPerson.EPhoneNumber;
+            document.getElementById('editSalary').value = salesPerson.ESalary;
+            document.getElementById('editAddress').value = salesPerson.EAddress;
+            document.getElementById('editDob').value = salesPerson.EDateOfBirth;
+            document.getElementById('editCommissionRate').value = salesPerson.CommissionRate;
+
+            // Show the edit form
+            document.getElementById('editSalesPersonBox').style.display = 'block';
+        })
+        .catch(error => console.error('Error fetching SalesPerson details:', error));
+    }
+    // Function to handle form submission for editing a salesPerson
+    document.getElementById('editSalesPersonForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        
+        // Collect form data
+        const formData = {
+            id: document.getElementById('editSalesPersonId').value,
+            EHireDate: document.getElementById('editHireDate').value,
+            EFirstName: document.getElementById('editFirstName').value,
+            ELastName: document.getElementById('editLastName').value,
+            EEmail: document.getElementById('editEmail').value,
+            EPhone: document.getElementById('editPhone').value,
+            ESalary: document.getElementById('editSalary').value,
+            EAddress: document.getElementById('editAddress').value,
+            EDateOfBirth: document.getElementById('editDob').value,
+            Commission_rate: document.getElementById('editCommissionRate').value
+        };
+        
+        // Send a PUT request to your Flask server to update the salesPerson
+        fetch(`/api/salesPerson/${formData.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Check if the response indicates success or failure
+            if (data.message) {
+                // Show a success message to the user
+                alert(data.message);
+                // Optionally, refresh the salesPerson list
+                fetchSalesPerson(); // Refresh salesPerson list after editing a salesPerson
+            } else {
+                // Show an error message to the user
+                alert(data.error);
+            }
+            // Hide the edit form after submission
+            document.getElementById('editSalesPersonBox').style.display = 'none';
+        })
+        .catch(error => {
+            console.error('Error updating salesPerson:', error);
+            // Show an error message to the user
+            alert('An error occurred while updating SalesPerson.');
+        });
+    });
+    
+    function showUserEditBox() {
+        document.getElementById('editSalesPersonBox').style.display = 'block';
+    }
+  
+    // Search customer function
+    function searchSalesperson() {
+        const attribute = document.getElementById('searchAttribute').value;
+        const value = document.getElementById('searchValue').value;
+        
+        if (!value) {
+            alert('Please enter a search value');
+            return;
+        }
+        
+        fetch('/searchS', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ attribute, value }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const table = document.getElementById('mytable');
+            table.innerHTML = ''; // Clear the table
+            
+            if (!data.SalesPerson || data.SalesPerson.length === 0) {
+                const noResultsRow = `<tr><td colspan="8">No results found</td></tr>`;
+                table.insertAdjacentHTML('beforeend', noResultsRow);
+                return;
+            }
+
+            data.SalesPerson.forEach(salesperson => {
+                const row = `<tr>
+                    <td>${salesperson.SId}</td>
+                    <td>${salesperson.EHireDate}</td>
+                    <td>${salesperson.EFirstName}</td>
+                    <td>${salesperson.ELastName}</td>
+                    <td>${salesperson.EEmail}</td>
+                    <td>${salesperson.EPhone}</td>
+                    <td>${salesperson.ESalary}</td>
+                    <td>${salesperson.EAddress}</td>
+                    <td>${salesperson.EDateOfBirth}</td>
+                    <td>${salesperson.CommissionRate}</td>
+
+                    <td class="action-icons">
+                        <button class="btn btn-warning" onclick="editSalesPerson(${salesperson.SId})">Edit</button>
+                        <button class="btn btn-danger" onclick="deleteSalesPerson(${salesperson.SId})">Delete</button>
+                    </td>
+                </tr>`;
+                table.insertAdjacentHTML('beforeend', row);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+</script>
+<script src="index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.">
+
+</script>
+</body>
+</html>
+
+

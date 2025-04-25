@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/icon" href="../static/img/logo.jpg"/>
+
+    <title>Manager CRUD</title>
+
+    <style>
+        .bg-mynav {
+            background-color: #1e1e1e;
+        }
+
+        body {
+            font-size: 1.25rem;
+            background-color: #f6f8fa;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        td {
+            line-height: 3rem;
+        }
+
+        /* Animation for table rows */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        tbody tr {
+            animation: fadeInUp 0.5s ease-in-out;
+        }
+
+        /* Animation for Create User Box */
+        @keyframes slideInFromRight {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        #createUserBox {
+            animation: slideInFromRight 0.5s ease-in-out;
+        }
+
+        /* Adjusted sidebar styling */
+        .sidebar {
+            height: 100%;
+            width: 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #1e1e1e;
+            padding-top: 20px;
+            overflow-x: hidden;
+            transition: width 0.4s ease-in-out;
+            z-index: 1; /* Ensure sidebar appears above content */
+        }
+
+        /* Show icons even when sidebar is collapsed */
+        .sidebar .sidebar-icons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar:hover {
+            width: 250px;
+        }
+
+        .sidebar-content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 50px;
+            background-color: #1e1e1e;
+            height: 100%;
+            padding-top: 20px;
+            transition: left 0.4s ease-in-out;
+        }
+
+        .sidebar:hover .sidebar-content {
+            display: block;
+            left: 0;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            /* Add transition */
+            transition: padding 0.4s ease-in-out;
+        }
+
+        .sidebar a:hover {
+            padding: 10px 25px;
+        }
+
+        .sidebar img {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        .content {
+            margin-left: 50px; /* Initial margin */
+            padding: 20px;
+            transition: margin-left 0.4s ease-in-out; /* Add transition for margin */
+        }
+
+        /* Adjust content margin when sidebar expands */
+        .sidebar:hover ~ .content {
+            margin-left: 250px; /* Match the expanded width of the sidebar */
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        
+        .slider{
+            width: 1300px;
+            max-width: 100vw;
+            height: 600px;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slider .list{
+            position: absolute;
+            width: max-content;
+            height: 100%;
+            left: 0;
+            top: 0;
+            display: flex;
+            transition: 1s;
+        }
+        .slider .list img{
+            width: 1300px;
+            max-width: 100vw;
+            height: 100%;
+            object-fit: cover;
+        }
+        .slider .buttons{
+            position: absolute;
+            top: 45%;
+            left: 5%;
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .slider .buttons button{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #fff5;
+            color: #fff;
+            border: none;
+            font-family: monospace;
+            font-weight: bold;
+        }
+        .slider .dots{
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            color: #fff;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .slider .dots li{
+            list-style: none;
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            margin: 10px;
+            border-radius: 20px;
+            transition: 0.5s;
+        }
+        .slider .dots li.active{
+            width: 30px;
+        }
+        @media screen and (max-width: 768px){
+            .slider{
+                height: 400px;
+            }
+        }
+        .bg-mynav {
+            background-color: #1e1e1e;
+        }
+
+        body {
+            font-size: 1.25rem;
+            background-color: #f6f8fa;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .content {
+            margin-left: 50px; /* Initial margin */
+            padding: 20px;
+            transition: margin-left 0.4s ease-in-out; /* Add transition for margin */
+        }
+
+        /* Adjust content margin when sidebar expands */
+        .sidebar:hover ~ .content {
+            margin-left: 250px; /* Match the expanded width of the sidebar */
+        }
+
+        .slider {
+            width: 100%;
+            height: 80vh; /* Adjust the height as needed */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider .list {
+            position: absolute;
+            width: 500%; /* Adjust the width based on the number of images */
+            height: 100%;
+            left: 0;
+            top: 0;
+            display: flex;
+            transition: 1s;
+        }
+
+        .slider .list .item {
+            width: 20%; /* Adjust the width based on the number of images */
+        }
+
+        .slider .list img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure images cover the slider area */
+        }
+
+        /* Media query for smaller screens */
+        @media screen and (max-width: 768px) {
+            .slider {
+                height: 60vh; /* Adjust the height for smaller screens */
+            }
+        }
+
+
+    </style>
+</head>
+<body style="font-family: 'Poppins';">
+
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-icons" style="display: flex; flex-direction: column; align-items: center;">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <img src="../static/img/logo.jpg" alt="Friends Motors">
+        </div>
+        <br>
+        <br>
+        <a href="#">
+            <img src="../static/img/team-fill.png" alt="Customer Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/account-pin-box-line.png" alt="Salesperson Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/contract-fill.png" alt="Transaction Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/car-line.png" alt="Vehicle Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/bookmark-fill.png" alt="Book Icon"> 
+        </a>
+        <br>
+        <a href="#">
+            <img src="../static/img/file-chart-line.png" alt="Report Icon"> 
+        </a>
+    </div>
+    <div class="sidebar-content">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <div>
+                <img src="../static/img/logo.jpg" alt="Friends Motors" style="width: 30px; margin-right: 10px;">
+            </div>
+            <div>
+                <p style="font-size: 20px; color: white; margin: 0;">FRIENDS MOTORS</p>
+            </div>
+        </div>
+        <br>
+        <br>
+        <a href="#" onclick="window.location.href='/customerM'">
+            <img src="../static/img/team-fill.png" alt="Customer Icon" style="margin-right: 10px;"> Customers
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/salespersonT'">
+            <img src="../static/img/account-pin-box-line.png" alt="Salesperson Icon" style="margin-right: 10px;"> Salesperson
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/transactionM'">
+            <img src="../static/img/contract-fill.png" alt="Transaction Icon" style="margin-right: 10px;"> Transaction Details
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/vehicleM'">
+            <img src="../static/img/car-line.png" alt="Vehicle Icon" style="margin-right: 10px;"> Vehicle
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/bookM'">
+            <img src="../static/img/bookmark-fill.png" alt="Book Icon" style="margin-right: 10px;"> Book
+        </a>
+        <br>
+        <a href="#" onclick="window.location.href='/report'">
+            <img src="../static/img/file-chart-line.png" alt="Book Icon" style="margin-right: 10px;"> Report
+        </a>
+    </div>
+    <div class="sidebar-footer">
+        <a href="#" onclick="window.location.href='/Mlog'">
+            <img src="../static/img/logout-box-line.png" alt="Log-out Icon" style="margin-right: 10px;"> Log-out
+        </a>
+    </div>
+</div>
+<!-- Page content -->
+<div class="content">
+    <nav class="navbar navbar-dark bg-mynav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Manager Control Page</a>
+        </div>
+    </nav>
+
+    <br>
+
+
+    <div class="slider">
+        <div class="list">
+            <div class="item">
+                <img src="../static/img/unsplash_4mh4JLuFies.png" alt="">
+            </div>
+            <div class="item">
+                <img src="../static/img/unsplash__4sWbzH5fp8.png" alt="">
+            </div>
+            <div class="item">
+                <img src="../static/img/unsplash_j1ZzPpxFnpM.png" alt="">
+            </div>
+            <div class="item">
+                <img src="../static/img/unsplash_SWt1dHle1eA.png" alt="">
+            </div>
+            <div class="item">
+                <img src="../static/img/unsplash_khYVyHiNZo0.png" alt="">
+            </div>
+        </div>
+        <div class="buttons">
+            <button id="prev"><</button>
+            <button id="next">></button>
+        </div>
+        <ul class="dots">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+</div>
+
+
+<script>
+    let slider = document.querySelector('.slider .list');
+    let items = document.querySelectorAll('.slider .list .item');
+    let next = document.getElementById('next');
+    let prev = document.getElementById('prev');
+    let dots = document.querySelectorAll('.slider .dots li');
+
+    let lengthItems = items.length - 1;
+    let active = 0;
+    next.onclick = function(){
+        active = active + 1 <= lengthItems ? active + 1 : 0;
+        reloadSlider();
+    }
+    prev.onclick = function(){
+        active = active - 1 >= 0 ? active - 1 : lengthItems;
+        reloadSlider();
+    }
+    let refreshInterval = setInterval(()=> {next.click()}, 3000);
+    function reloadSlider(){
+        slider.style.left = -items[active].offsetLeft + 'px';
+        // 
+        let last_active_dot = document.querySelector('.slider .dots li.active');
+        last_active_dot.classList.remove('active');
+        dots[active].classList.add('active');
+
+        clearInterval(refreshInterval);
+        refreshInterval = setInterval(()=> {next.click()}, 3000);
+
+        
+    }
+
+    dots.forEach((li, key) => {
+        li.addEventListener('click', ()=>{
+            active = key;
+            reloadSlider();
+        })
+    })
+    window.onresize = function(event) {
+        reloadSlider();
+    };
+</script>
+<script src="index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0."></script>
+</body>
+</html>

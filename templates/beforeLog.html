@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Data -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title of Site -->
+    <title>Login - Friend Motors</title>
+
+    <!-- Font Family -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/icon" href="../static/img/logo.jpg" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../static/bootstrap.min.css">
+            <!--font-awesome.min.css-->
+            <link rel="stylesheet" href="../static/font-awesome.min.css">
+
+            <!--linear icon css-->
+            <link rel="stylesheet" href="../static/linearicons.css">
+    
+            <!--flaticon.css-->
+            <link rel="stylesheet" href="../static/flaticon.css">
+    
+            <!--animate.css-->
+            <link rel="stylesheet" href="../static/animate.css">
+    
+            <!--owl.carousel.css-->
+            <link rel="stylesheet" href="../static/owl.carousel.min.css">
+            <link rel="stylesheet" href="../static/owl.theme.default.min.css">
+            
+            <!--bootstrap.min.css-->
+            <link rel="stylesheet" href="../static/bootstrap.min.css">
+            
+            <!-- bootsnav -->
+            <link rel="stylesheet" href="../static/bootsnav.css" >	
+            
+            <!--style.css-->
+            <link rel="stylesheet" href="../static/style.css">
+            
+            <!--responsive.css-->
+            <link rel="stylesheet" href="../static/responsive.css">
+    
+            
+            
+            
+    
+
+    <!-- Custom Stylesheet -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            background-image: url(../static/img/blackcar.png);
+            background-position: center;
+            background-size: cover;
+            color: #fff; /* Text color */
+        }
+
+        .login-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        #abouttxt h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        #paragraph {
+            margin-bottom: 50px;
+        }
+
+        #paragraph p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .service-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInUp 1s;
+        }
+
+        .single-service-item {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 0 15px;
+            text-align: center;
+            animation: fadeInUp 1s;
+        }
+
+        .single-service-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #343a40; /* Icon color */
+        }
+
+        .single-service-item h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .single-service-item p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .login-form {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 50px 0;
+            margin: 0 30px;
+            animation: fadeInUp 1s;
+        }
+
+        .form-header h2 {
+            font-size: 36px;
+            color: #343a40;
+            margin-bottom: 30px;
+        }
+
+        .form-content {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #343a40;
+        }
+
+        .form-control {
+            border-radius: 0;
+            box-shadow: none;
+            border-color: #ced4da;
+        }
+
+        .form-control:focus {
+            border-color: #495057;
+            box-shadow: none;
+        }
+
+        .login-btn {
+            background-color: #343a40;
+            color: #fff;
+            border-radius: 0;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #495057;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body style="display: flex; align-items: center; justify-content: center;">
+    <section id="service" class="service">
+        <div id="abouttxt">
+        </div>
+        
+        <div class="container">
+            <div class="service-content" style="display: flex; align-items: center; justify-content: center;">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6" style="display: flex; align-items: center; justify-content: center; ">
+                        <div class="single-service-item" style="height: 300px; width: 300px; justify-content: center; align-items: center;">
+                            <div class="single-service-icon">
+                                <i class="flaticon-car"></i>
+                            </div>
+                            <h2><a href="#" onclick="window.location.href='/Slog'">Salesperson</a></h2>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="single-service-item" style="height: 300px; width: 300px; justify-content: center; align-items: center;">
+                            <div class="single-service-icon">
+                                <i class="flaticon-car-repair"></i>
+                            </div>
+
+                            <h2><a href="#" onclick="window.location.href='/Mlog'">Manager</a></h2>
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6" >
+                        <div class="single-service-item" style="height: 300px; width: 300px; justify-content: center; align-items: center;" >
+                            <div class="single-service-icon" >
+                                <i class="flaticon-car-1"></i>
+                            </div>
+                            <h2><a href="#" onclick="window.location.href='/Clog'">Customer</a></h2>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+           
+           
+        </div><!--/.container-->
+        <div  style="display: flex; align-items: center; justify-content: center;">
+            <div style="font-family: 'Poppins'; color: white;">
+                <br>
+                <br>
+                <h1 style="color: white; font-family: 'Poppins'; font-size: 30px;">Choose Your Career To Login</h1>
+            </div>
+    
+        </div>
+
+    </section><!--/.service-->
+    
+</body>
+</html>

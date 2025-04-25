@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Meta Data -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title of Site -->
+    <title>Book a Car - Friend Motors</title>
+
+    <!-- Font Family -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/icon" href="../static/img/logo.jpg" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../static/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome.min.css') }}">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../static/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="../static/animate.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='animate.css') }}">
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .book-form {
+            padding: 50px 0;
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 30px;
+            animation: fadeInUp 1s;
+            display: flex;
+            justify-content: center; /* Align items horizontally */
+            align-items: center; /* Align items vertically */
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            color: #343a40;
+            animation: fadeInDown 1s;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: #6c757d;
+            animation: fadeInDown 1s;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #343a40;
+        }
+
+        .form-control {
+            border-radius: 0;
+            box-shadow: none;
+            border-color: #ced4da;
+        }
+
+        .form-control:focus {
+            border-color: #495057;
+            box-shadow: none;
+        }
+
+        .welcome-btn {
+            background-color: #343a40;
+            color: #fff;
+            border-radius: 0;
+            transition: background-color 0.3s;
+        }
+
+        .welcome-btn:hover {
+            background-color: #495057;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body style="justify-content: center; align-items: center; display: flex; background-image: url(../static/img/blackcar.png); background-position: center; background-size: cover;">
+    <!-- Book Form Start -->
+    <section id="book-form" class="book-form" style="display: flex; align-items: center; justify-content: center;">
+        <div class="container" style="padding-left: 150px; padding-right: 150px;">
+            <div class="section-header">
+                <h2 style="padding-bottom: 20px;">Book Your Dream Car</h2>
+                <p style="padding-top: 20px;">Please fill out the form below to book your car</p>
+            </div>
+            <div class="form-content">
+                <form action="/book_car" method="post">
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                        <div class="col-sm-10">
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Your Phone Number" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="cid" class="col-sm-2 col-form-label">Customer ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="cid" name="cid" placeholder="Your Customer ID, e.g. 1" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="vid" class="col-sm-2 col-form-label">Vehicle ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="vid" name="vid" placeholder="Your Vehicle ID, e.g. 1210000" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label for="date" class="col-sm-2 col-form-label">Preferred Date</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="date" name="date" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="time" class="col-sm-2 col-form-label">Preferred Time</label>
+                        <div class="col-sm-10">
+                            <input type="time" class="form-control" id="time" name="time" required>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <div class="form-group row">
+                            <div class="col-sm-10 offset-sm-2">
+                                <button type="submit" class="btn welcome-btn" style="font-family: Poppins; font-size: 15px; color: white;">Book Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+            <div>
+                <div id="success-message" style="display: none;" class="alert alert-success" role="alert">
+                    Successfully booked!
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+    <!-- Book Form End -->
+    <script>
+        document.getElementById('bookingForm').addEventListener('submit', function(event) {
+            // Prevent default form submission
+            event.preventDefault();
+    
+            // Show success message
+            document.getElementById('success-message').style.display = 'block';
+            // Wait for 10 seconds and then redirect
+        setTimeout(function() {
+            window.location.href = 'indexAfter'; // Redirect to index.html
+        }, 10000); // Wait for 10 seconds (10000 milliseconds)
+        });
+    </script>
+    
+
+</body>
+
+</html>
