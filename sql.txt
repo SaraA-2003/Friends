@@ -1,0 +1,289 @@
+create database CarDealerShip;
+drop database cardealership;
+use CarDealerShip;
+
+create table Customer(
+	CId int auto_increment,
+    CFirstName varchar(32) not null,
+    CLastName varchar(32) not null,
+    CDateOfBirth date not null,
+    CLicenseId varchar(4) not null,
+    CAddress varchar(64),
+    CPhoneNumber varchar(10) not null,
+    primary key(CId)
+)auto_increment=1;
+    
+alter table customer modify CAddress varchar(64) default 'Unknown';
+
+create table Vehicle(
+	VId int auto_increment,
+    CId int,
+    VModel varchar(32) not null,
+    VYear int not null,
+    VPrice real not null,
+    VMake varchar(32),
+    VColor varchar(32),
+    primary key(VId),
+	foreign key (CId) references Customer(CId) on delete cascade on update cascade
+)auto_increment=1210000;
+
+alter table Vehicle modify VMake varchar(32) default 'Unknown';
+
+create table TransactionDetails(
+	TId int auto_increment,
+    CId int not null,
+    SId int not null,
+    MId int not null,
+    VId int not null,
+    TotalPrice real not null,
+    TDate Date not null,
+    PMethod varchar(32) not null,
+    primary key(TId),
+    foreign key (CId) references Customer(CId) on delete cascade on update cascade,
+    foreign key (VId) references Vehicle(VId) on delete cascade on update cascade,
+    foreign key (SId) references SalesPerson(SId) on delete cascade on update cascade,
+    foreign key (MId) references Manager(MId) on delete cascade on update cascade
+)auto_increment=1;
+
+
+create table SalesPerson(
+	SId int auto_increment,
+    EHireDate Date not null,
+    EFirstName varchar(32) not null,
+    ELastName varchar(32) not null,
+    EEmail varchar(32) not null,
+    EPhoneNumber varchar(10) not null,
+    ESalary real not null,
+    EAddress varchar(64),
+    EDateOfBirth Date not null,
+    CommissionRate real,
+    primary key(SId)
+)auto_increment=1;
+
+
+create table Manager(
+	MId int auto_increment,
+    EHireDate Date not null,
+    EFirstName varchar(32) not null,
+    ELastName varchar(32) not null,
+    EEmail varchar(32) not null,
+    EPhoneNumber varchar(10) not null,
+    ESalary real not null,
+    EAddress varchar(64),
+    EDateOfBirth Date not null,
+    ExperienceLevel int not null,
+    primary key(MId)
+)auto_increment=1;	
+
+
+create table Book (
+	BId int auto_increment,
+    CId int not null, 
+    VId int not null,
+    CPhone varchar(10) not null,
+    BDate Date not null,
+    primary key(BId),
+    foreign key (CId) references Customer(CId) on delete cascade on update cascade,
+    foreign key (VId) references Vehicle(VId) on delete cascade on update cascade
+)auto_increment=1;
+
+
+drop table Customer;
+drop table Vehicle;
+drop table TransactionDetails;
+drop table SalesPerson;
+drop table Manager;
+drop table Book;
+show tables;
+    
+INSERT INTO SalesPerson (EHireDate, EFirstName, ELastName, EEmail, EPhoneNumber, ESalary, EAddress, EDateOfBirth, CommissionRate)
+VALUES
+  ('2022-01-15', 'Omar', 'Khalil', 'omar.khalil@carsales.com', '0567321489', 50000.00, 'Ramallah', '1985-07-21', 0.10),
+  ('2023-05-09', 'Layla', 'Suliman', 'layla.suliman@carsales.com', '0598472136', 48000.00, 'Jenin', '1990-02-10', 0.08),
+  ('2021-09-23', 'Ibrahim', 'Hassan', 'ibrahim.hassan@carsales.com', '0569723184', 45000.00, 'Nablus', '1987-11-14', 0.07),
+  ('2022-04-12', 'Aisha', 'Mohammad', 'aisha.mohammad@carsales.com', '0593814726', 42000.00, 'Tulkarm', '1992-08-28', 0.06),
+  ('2023-12-19', 'Youssef', 'Daoud', 'youssef.daoud@carsales.com', '0568273914', 55000.00, 'Hebron', '1980-09-05', 0.12),
+  ('2021-02-06', 'Tasnim', 'Farah', 'tasnim.farah@carsales.com', '0595472813', 40000.00, 'Gaza', '1989-06-12', 0.05),
+  ('2024-01-25', 'Sami', 'Khalil', 'sami.khalil@carsales.com', '0563721948', 48000.00, 'Bethlehem', '1991-04-17', 0.09),
+  ('2022-08-18', 'Rula', 'Suliman', 'rula.suliman@carsales.com', '0597428136', 42000.00, 'Jerusalem', '1988-12-23', 0.08),
+  ('2023-03-09', 'Rawan', 'Mohammad', 'rawan.mohammad@carsales.com', '0564271839', 45000.00, 'Qalqilya', '1994-05-04', 0.07),
+  ('2021-11-21', 'Khaled', 'Daoud', 'khaled.daoud@carsales.com', '0598732146', 50000.00, 'Hebron', '1983-01-10', 0.10),
+  ('2023-07-11', 'Nada', 'Farah', 'nada.farah@carsales.com', '0561372894', 46000.00, 'Gaza', '1993-03-02', 0.06),
+  ('2022-02-23', 'Dina', 'Mohammad', 'dina.mohammad@carsales.com', '0594821376', 49000.00, 'Tulkarm', '1986-09-18', 0.09),
+  ('2024-03-14', 'Amir', 'Yousef', 'amir.yousef@carsales.com', '0569274163', 52000.00, 'Hebron', '1989-12-25', 0.11),
+  ('2021-10-05', 'Bayan', 'Ibrahim', 'bayan.ibrahim@carsales.com', '0597381472', 41000.00, 'Nablus', '1990-07-04', 0.05),
+  ('2022-05-17', 'Haneen', 'Khalef', 'haneen.khalef@carsales.com', '0568472139', 44000.00, 'Ramallah', '1995-02-12', 0.07),
+  ('2023-10-26', 'Farah', 'Nasser', 'farah.nasser@carsales.com', '0595271846', 53000.00, 'Qalqilya', '1984-08-20', 0.12),
+  ('2021-04-01', 'Rami', 'Salim', 'rami.salim@carsales.com', '0563478129', 47000.00, 'Jenin', '1988-03-05', 0.08),
+  ('2024-02-09', 'Noor', 'Ahmad', 'noor.ahmad@carsales.com', '0598173216', 50000.00, 'Jerusalem', '1999-11-21', 0.10),
+  ('2022-09-20', 'Karim', 'Suliman', 'karim.suliman@carsales.com', '0564732819', 43000.00, 'Tulkarm', '1990-04-17', 0.06),
+  ('2021-03-23', 'Layan', 'Khalil', 'layan.khalil@carsales.com', '0597821364', 48000.00, 'Nablus', '2003-01-10', 0.08);
+  
+
+INSERT INTO Manager (EHireDate, EFirstName, ELastName, EEmail, EPhoneNumber, ESalary, EAddress, EDateOfBirth, ExperienceLevel) VALUES
+  ('2019-02-05', 'Layla', 'Khalil', 'layla@example.com', '0599991111', 3800.00, 'Hebron', '1985-01-20', 2),
+  ('2018-05-17', 'Karim', 'Abu-Ghazaleh', 'karim@example.com', '0564442222', 4500.00, 'Nablus', '1972-09-09', 5),
+  ('2020-11-23', 'Reem', 'Jaber', 'reem@example.com', '0598883333', 3500.00, 'Ramallah', '1988-04-14', 1),
+  ('2017-09-21', 'Omar', 'Darwish', 'omar@example.com', '0562220000', 4800.00, 'Jenin', '1968-11-26', 7),
+  ('2019-04-12', 'Hala', 'Mustafa', 'hala@example.com', '0597775555', 3900.00, 'Bethlehem', '1982-03-08', 3),
+  ('2018-01-04', 'Amir', 'Hamdan', 'amir@example.com', '0565554444', 4300.00, 'Qalqilya', '1977-06-12', 4),
+  ('2020-07-19',  'Dina', 'Al-Quds', 'dina@example.com', '0593339999', 3700.00, 'Jerusalem', '1987-08-18', 2),
+  ('2017-05-25', 'Fadi', 'Arafat', 'fadi@example.com', '0561118888', 4600.00, 'Jericho', '1970-05-03', 6),
+  ('2019-10-26', 'Rana', 'Zayed', 'rana@example.com', '0590007777', 4000.00, 'Salfit', '1984-12-22', 1),
+  ('2018-07-13', 'Majed', 'Barghouti', 'majed@example.com', '0568886666', 4400.00, 'Tulkarm', '1973-07-07', 5),
+  ('2021-02-14', 'Noor', 'Shaheen', 'noor@example.com', '0596665555', 3600.00, 'Ramallah', '1989-02-14', 0),  -- New manager
+  ('2020-04-21', 'Bassam', 'Freij', 'bassam@example.com', '0569994444', 4900.00, 'Nablus', '1967-04-21', 8),  -- Experienced manager
+  ('2018-12-28', 'Amani', 'Abu-Libdeh', 'amani@example.com', '0592221111', 4100.00, 'Bethlehem', '1978-03-28', 3),
+  ('2021-05-03', 'Yara', 'Salameh', 'yara@example.com', '0595551212', 3400.00, 'Hebron', '1990-05-03', 1),  -- New manager
+  ('2016-02-10', 'Sami', 'Abu-Hijleh', 'sami@example.com', '0563337777', 5200.00, 'Jenin', '1965-02-10', 9),  -- Very experienced manager
+  ('2020-09-16', 'Tasneem', 'Daoud', 'tasneem@example.com', '0591115555', 3200.00, 'Qalqilya', '1991-09-16', 0),  -- New manager
+  ('2018-03-22', 'Firas', 'Nassr', 'firas@example.com', '0567774444', 4700.00, 'Tulkarm', '1974-03-22', 6),
+  ('2019-08-30', 'Waseem', 'Abu-Mukh', 'waseem@example.com', '0594443333', 4200.00, 'Nablus', '1983-08-30', 4),
+  ('2017-12-21',  'Lara', 'Abu-Ghazaleh', 'lara@example.com', '0562226666', 5000.00, 'Ramallah', '1969-12-21', 8),  -- Experienced manager
+  ('2020-03-23', 'Maysaa', 'Shahin', 'maysaa@example.com', '0590001111', 3900.00, 'Bethlehem', '1986-03-23', 2),
+  ('2018-11-09', 'Iyad', 'Barghouti', 'iyad@example.com', '0568880000', 4000.00, 'Salfit', '1975-11-09', 5),
+  ('2019-06-14', 'Abeer', 'Darwish', 'abeer@example.com', '0596669999', 3600.00, 'Jericho', '1987-06-14', 3),
+  ('2017-02-09', 'Jamal', 'Arafat', 'jamal@example.com', '0564448888', 4400.00, 'Jerusalem', '1970-02-09', 6);
+
+
+insert into Customer (CFirstName, CLastName, CDateOfBirth, CLicenseId, CAddress, CPhoneNumber) values
+    ('Ahmad', 'Ali', '1999-12-01', '1111', 'Ramallah', '0599387472'),
+    ('Jana', 'Tarek', '2001-12-23', '4332', 'Jenin', '056384729'),
+    ('Omar', 'Bashar', '1989-07-21', '1334', 'Beitunia', '059847362'),
+    ('Malak', 'Omar', '1998-03-14', '1122', 'Ramallah', '059381724'),
+    ('Sarah', 'Raed', '2002-12-12', '3221', 'Hebron', '056739271'),
+    ('Majd', 'Qimari', '1979-09-22', '1000', 'Nablus', '056982221'),
+    ('Ibrahim', 'Mohammad', '1959-09-02', '3233', 'Jerusalem', '0593741128'),
+    ('Layla', 'Nasser', '1995-08-17', '2442', 'Bethlehem', '059837264'),
+    ('Khaled', 'Salim', '1990-06-05', '5500', 'Tulkarm', '059283746'),
+    ('Rana', 'Sami', '2000-02-28', '1212', 'Gaza', '059472819'),
+    ('Aya', 'Hamid', '1997-04-10', '4321', 'Qalqilya', '059182736'),
+    ('Mohammed', 'Yousef', '1985-11-03', '6543', 'Jericho', '056483729'),
+    ('Nour', 'Khalid', '1993-10-15', '8777', 'Ramallah', '059293746'),
+    ('Tala', 'Ali', '1980-03-25', '3456', 'Hebron', '059372819');
+
+insert into Customer (CFirstName, CLastName, CDateOfBirth, CLicenseId, CAddress, CPhoneNumber) values
+('Layan', 'Khalil', '2003-01-10', '7788', 'Nablus', '056973456'),
+  ('Karim', 'Suliman', '1995-04-17', '2255', 'Tulkarm', '0598273641'),
+  ('Aisha', 'Mohammad', '2000-08-28', '9876', 'Qalqilya', '059723816'),
+  ('Youssef', 'Daoud', '1987-02-14', '3344', 'Hebron', '056837492'),
+  ('Tasnim', 'Farah', '1992-09-09', '5432', 'Gaza', '0595741283'),
+  ('Ibrahim', 'Hassan', '1982-05-23', '1477', 'Bethlehem', '056472918'),
+  ('Noor', 'Ahmad', '1999-11-21', '8899', 'Jerusalem', '059382614'),
+  ('Rami', 'Salim', '1994-03-05', '6789', 'Jenin', '0562817493'),
+  ('Haneen', 'Khalef', '2002-07-12', '4567', 'Ramallah', '059947328'),
+  ('Farah', 'Nasser', '1988-01-20', '1012', 'Nablus', '056827194'),
+  ('Dina', 'Mohammad', '1996-06-18', '3900', 'Tulkarm', '0597346215'),
+  ('Amir', 'Yousef', '1990-12-25', '7890', 'Hebron', '0564928371'),
+  ('Bayan', 'Ibrahim', '2001-02-04', '2468', 'Gaza', '0596837294'),
+  ('Dana', 'Hassan', '1997-10-09', '5678', 'Bethlehem', '0561739285');
+
+
+-- Insert data into Vehicle table (referencing existing Customer IDs)
+INSERT INTO Vehicle (CId, VModel, VYear, VPrice, VMake, VColor)
+VALUES
+  (1, 'Honda Accord', 2024, 28000.00, 'Honda', 'Red'),
+  (3, 'Chevrolet Silverado', 2023, 42000.00, 'Chevrolet', 'Blue'),
+  (2, 'Toyota Corolla', 2022, 20500.00, 'Toyota', 'White'),
+  (5, 'Hyundai Elantra', 2021, 18000.00, 'Hyundai', 'Silver'),
+  (12, 'Kia Optima', 2024, 23000.00, 'Kia', 'Black'),
+  (8, 'Nissan Sentra', 2023, 19000.00, 'Nissan', 'Gray'),
+  (4, 'Ford F-150', 2022, 45000.00, 'Ford', 'Blue'),
+  (9, 'Volkswagen Jetta', 2021, 21000.00, 'Volkswagen', 'Red'),
+  (7, 'Subaru Outback', 2024, 27000.00, 'Subaru', 'Green'),
+  (10, 'Dodge Challenger', 2023, 38000.00, 'Dodge', 'Black'),
+  (14, 'Chrysler Pacifica', 2022, 35000.00, 'Chrysler', 'White'),
+  (6, 'Jeep Wrangler', 2021, 40000.00, 'Jeep', 'Gray'),
+  (11, 'BMW X3', 2024, 48000.00, 'BMW', 'Black'),
+  (13, 'Mercedes-Benz C-Class', 2023, 45000.00, 'Mercedes-Benz', 'Silver'),
+  (1, 'Audi A4', 2022, 42000.00, 'Audi', 'Red'),
+  (3, 'Lexus ES', 2021, 40000.00, 'Lexus', 'Blue'),
+  (12, 'Volvo S60', 2024, 39000.00, 'Volvo', 'White'),
+  (5, 'Land Rover Discovery', 2023, 55000.00, 'Land Rover', 'Black'),
+  (8, 'Porsche Macan', 2022, 60000.00, 'Porsche', 'Red'),
+  (4, 'Tesla Model 3', 2021, 52000.00, 'Tesla', 'Blue');
+  
+  
+INSERT INTO Book (CId, VId, CPhone, BDate)
+VALUES
+  (4, 1210007, '056347281', '2024-06-05'),  -- Customer (CId=4) tests vehicle VId=1210007 (assuming a new vehicle)
+  (9, 1210001, '056817392', '2024-06-06'),  -- Customer (CId=9) tests vehicle VId=1210001
+  (11, 1210004, '0569381274', '2024-06-08'), -- Customer (CId=11) tests vehicle VId=1210004
+  (1, 1210002, '0599738462', '2024-06-10'),  -- Customer (CId=1) tests vehicle VId=1210002
+  (14, 1210006, '0564279381', '2024-06-11'), -- Customer (CId=14) tests vehicle VId=1210006
+  (10, 1210007, '0563817492', '2024-06-14'), -- Customer (CId=10) tests vehicle VId=1210007
+  (2, 1210001, '0597482136', '2024-06-15'),  -- Customer (CId=2) tests vehicle VId=1210001
+  (8, 1210005, '0561732894', '2024-06-17'),  -- Customer (CId=8) tests vehicle VId=1210005
+  (5, 1210002, '0598742136', '2024-06-18'),  -- Customer (CId=5) tests vehicle VId=1210002
+  (13, 1210015, '0569347281', '2024-06-19'), -- Customer (CId=13) tests vehicle VId=1210008 (assuming a new vehicle)
+  (1, 1210006, '0599274163', '2024-06-20'),  -- Customer (CId=1) tests vehicle VId=1210006
+  (12, 1210003, '0568142379', '2024-06-21'), -- Customer (CId=12) tests vehicle VId=1210003
+  (4, 1210007, '0594721836', '2024-06-24'),  -- Customer (CId=4) tests vehicle VId=1210007
+  (9, 1210001, '0598473216', '2024-06-26'),  -- Customer (CId=9) tests vehicle VId=1210001
+  (10, 1210001, '0597348162', '2024-06-28'); -- Customer (CId=10) tests vehicle VId=1210008 (assuming a new vehicle)
+    
+    
+INSERT INTO TransactionDetails (CId, SId, MId, VId, TotalPrice, TDate, PMethod) VALUES
+  (3, 1, 2, 1210003, 18000.00, '2024-05-10', 'Debit Card'),
+  (5, 3, 1, 1210004, 30000.00, '2024-05-10', 'Cash'),
+  (1, 2, 2, 1210005, 15000.00, '2024-05-11', 'Credit Card'),
+  (2, 1, 1, 1210009, 28000.00, '2024-05-11', 'Cash'),
+  (5, 3, 2, 1210007, 12000.00, '2024-05-12', 'Debit Card'),
+  (2, 2, 2, 1210015, 32000.00, '2024-05-16', 'Cash'),
+  (4, 3, 1, 1210016, 27000.00, '2024-05-16', 'Debit Card'),
+  (5, 1, 2, 1210017, 16000.00, '2024-05-17', 'Credit Card'),
+  (1, 2, 1, 1210018, 38000.00, '2024-05-17', 'Cash'),
+  (3, 3, 2, 1210019, 14000.00, '2024-05-18', 'Debit Card'),
+  (2, 1, 1, 1210020, 23000.00, '2024-05-18', 'Credit Card');
+  
+    
+select * from customer;
+    
+delete from customer;
+
+delete from salesperson;
+
+-- Dummy data for Vehicle table
+INSERT INTO Vehicle (CId, VModel, VYear, VPrice, VMake, VColor) VALUES
+    (1, 'Toyota Camry', 2022, 25000.00, 'Toyota', 'Red'),
+    (2, 'Honda Civic', 2023, 22000.00, 'Honda', 'Blue'),
+    (3, 'Ford Mustang', 2021, 35000.00, 'Ford', 'Black'),
+    (4, 'Nissan Altima', 2020, 20000.00, 'Nissan', 'White');
+select * from vehicle;
+
+-- Dummy data for SalesPerson table
+INSERT INTO SalesPerson (EHireDate, EFirstName, ELastName, EEmail, EPhoneNumber, ESalary, EAddress, EDateOfBirth, CommissionRate) VALUES
+    ('2020-01-15', 'Mohammad', 'Tarek', 'mohammad@example.com', '0551234567', 3000.00, 'Ramallah', '1990-05-10', 0.05),
+    ('2018-05-20', 'Ali', 'Hamza', 'ali@example.com', '0599876543', 2800.00, 'Bethlehem', '1988-11-25', 0.04),
+    ('2019-09-10', 'Ahmad', 'Majd', 'ahmad.m@example.com', '0561112222', 3200.00, 'Jerusalem', '1995-03-18', 0.06);
+
+select * from salesperson;
+
+
+-- Dummy data for Manager table
+INSERT INTO Manager (EHireDate, EFirstName, ELastName, EEmail, EPhoneNumber, ESalary, EAddress, EDateOfBirth, ExperienceLevel) VALUES
+    ('2017-03-12', 'Islam', 'Abd Alrahman', 'islam@example.com', '0595556666', 4000.00, 'Gaza', '1980-07-02', 3),
+    ('2016-08-28', 'Obada', 'Rami', 'obada@example.com', '0567778888', 4200.00, 'Tulkarm', '1975-12-15', 4);
+
+select * from manager;
+
+-- Dummy data for TransactionDetails table
+INSERT INTO TransactionDetails (CId, SId, MId, VId, TotalPrice, TDate, PMethod) VALUES
+    (1, 1, 1, 1210002, 25000.00, '2024-05-09', 'Cash'),
+    (2, 2, 2, 1210001, 22000.00, '2024-05-09', 'Credit Card');
+    
+select * from transactiondetails;
+
+-- Dummy data for Book table
+INSERT INTO Book (CId, VId, CPhone, BDate) VALUES
+    (1, 1210000, '059938747', '2024-05-10'),
+    (2, 1210001, '056384729', '2024-05-11'),
+    (3, 1210002, '059847362', '2024-05-12'),
+    (4, 1210002, '059381724', '2024-05-13'),
+    (5, 1210003, '056739271', '2024-05-14');
+
+select * from Book;
+select * from salesperson;
+
+delete  from vehicle;
+
