@@ -46,11 +46,49 @@ Friends-Motors/
 ├── database/
 │   └── CarDealerShip.sql         # MySQL database schema
 ├── frontend/
-│   ├── index.html                 # Homepage
-│   ├── styles.css                 # CSS styling
-│   └── script.js                  # JavaScript interactions
+│   ├── templates/
+│       ├── index.html            # Homepage
+│       ├── beforeLog.html
+│       ├── book_from.html
+│       ├── book.html
+│       ├── bookM.html
+│       ├── Clog.html
+│       ├── customer.html
+│       ├── customerM.html
+│       ├── indexAfter.html
+│       ├── manager.html
+│       ├── Mlog.html
+│       ├── report.html
+│       ├── salesperson.html
+│       ├── salespersonT.html
+│       ├── Slog.html
+│       ├── transaction.html
+│       ├── transactionM.html
+│       ├── vehicle.html
+│       ├── vehicleM.html     
+│   ├── static
+|       ├── img
+│       ├── fonts           
+│       ├── js/
+|           ├── bootsnav.js
+│           ├── bootstrap.min.js            
+│           ├── custom.js
+│           ├── feather.min.js
+│           ├── jquery.js
+│           ├── owl.carousel.min.js
+│       ├── animate.css
+│       ├── bootsnav.css
+│       ├── bootstrap.min.css
+│       ├── flaction.css
+│       ├── font-awesome.min.css
+│       ├── lineareicons.css
+│       ├── mystyle.css
+│       ├── owl.carousel.min.css
+│       ├── owl.theme.default.min.css
+│       ├── responsive.css
+│       ├── style.css                # CSS styling
 ├── backend/
-│   └── app.py                     # Python logic for database interaction
+│   └── connect.py                   # Python logic for database interaction
 ├── README.md
 ```
 
